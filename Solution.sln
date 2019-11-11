@@ -119,6 +119,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NoCredit", "NoCredit", "{D5
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pinternet_Explorer", "C20_EntityManager\Pinternet_Explorer.vcxproj", "{A5EFB951-51CD-4317-9069-5F52162818AE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project", "Project", "{CE0B069D-98AD-4495-9F65-BBBF9089DC29}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pinternet_Explorer", "Pinternet_Explorer\Pinternet_Explorer.vcxproj", "{60053595-3013-4DE6-91DE-EEB25B0075FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -319,6 +323,10 @@ Global
 		{A5EFB951-51CD-4317-9069-5F52162818AE}.Debug|x86.Build.0 = Debug|Win32
 		{A5EFB951-51CD-4317-9069-5F52162818AE}.Release|x86.ActiveCfg = Release|Win32
 		{A5EFB951-51CD-4317-9069-5F52162818AE}.Release|x86.Build.0 = Release|Win32
+		{60053595-3013-4DE6-91DE-EEB25B0075FF}.Debug|x86.ActiveCfg = Debug|Win32
+		{60053595-3013-4DE6-91DE-EEB25B0075FF}.Debug|x86.Build.0 = Debug|Win32
+		{60053595-3013-4DE6-91DE-EEB25B0075FF}.Release|x86.ActiveCfg = Release|Win32
+		{60053595-3013-4DE6-91DE-EEB25B0075FF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -373,6 +381,7 @@ Global
 		{870B329D-6DED-48D2-8E86-0893E3BB8DAB} = {78C06654-E155-40A8-97F7-7BA1E50977C5}
 		{D5DAFB74-E258-400F-9C89-B30FBD88CFA9} = {EE0E027C-366F-4685-94D5-0EA5F6870B1B}
 		{A5EFB951-51CD-4317-9069-5F52162818AE} = {A586CAA1-C864-488E-8301-D374FFD607C9}
+		{60053595-3013-4DE6-91DE-EEB25B0075FF} = {CE0B069D-98AD-4495-9F65-BBBF9089DC29}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A36545A6-DAAA-4856-BDB7-57C29F88BC6B}

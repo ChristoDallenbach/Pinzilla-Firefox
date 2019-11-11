@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A5EFB951-51CD-4317-9069-5F52162818AE}</ProjectGuid>
+    <ProjectGuid>{60053595-3013-4DE6-91DE-EEB25B0075FF}</ProjectGuid>
     <RootNamespace>Pinternet_Explorer</RootNamespace>
     <ProjectName>Pinternet_Explorer</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
