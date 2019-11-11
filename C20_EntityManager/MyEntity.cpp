@@ -108,7 +108,7 @@ bool Simplex::MyEntity::IsColliding(MyEntity* const other)
 {
 	//if not in memory return
 	if (!m_bInMemory || !other->m_bInMemory)
-		return true;
+		return false;
 
 	return m_pRigidBody->IsColliding(other->GetRigidBody());
 }

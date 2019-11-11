@@ -89,6 +89,8 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 {
 	static bool bFPSControl = false;
 	uint uTemp;
+	matrix4 lastMat;
+	RigidBody* rigidTemp;
 	switch (a_event.key.code)
 	{
 	default: break;
@@ -101,8 +103,9 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		{
 			m_pEntityMngr->RemoveEntity(uTemp);
 		}
+		lastMat = m_pEntityMngr->GetModelMatrix(0);
 		m_pEntityMngr->AddEntity("Planets\\01_Mercury.obj", "Ball");
-		m_pEntityMngr->SetModelMatrix(m_pEntityMngr->GetModelMatrix(0) * glm::scale(vector3(0.2f)));
+		m_pEntityMngr->SetModelMatrix(lastMat * glm::scale(vector3(0.2f)));
 		m_pEntityMngr->SetAxisVisibility(true);
 		break;
 	case sf::Keyboard::F1:
