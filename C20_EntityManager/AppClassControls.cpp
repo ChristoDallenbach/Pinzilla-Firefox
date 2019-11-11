@@ -88,12 +88,22 @@ void Application::ProcessKeyPressed(sf::Event a_event)
 void Application::ProcessKeyReleased(sf::Event a_event)
 {
 	static bool bFPSControl = false;
-
+	uint uTemp;
 	switch (a_event.key.code)
 	{
 	default: break;
 	case sf::Keyboard::Escape:
 		m_bRunning = false;
+		break;
+	case sf::Keyboard::E:
+		uTemp = m_pEntityMngr->GetEntityIndex("Ball");
+		if (uTemp != -1)
+		{
+			m_pEntityMngr->RemoveEntity(uTemp);
+		}
+		m_pEntityMngr->AddEntity("Planets\\01_Mercury.obj", "Ball");
+		m_pEntityMngr->SetModelMatrix(m_pEntityMngr->GetModelMatrix(0) * glm::scale(vector3(0.2f)));
+		m_pEntityMngr->SetAxisVisibility(true);
 		break;
 	case sf::Keyboard::F1:
 		m_pCameraMngr->SetCameraMode(CAM_PERSP);
@@ -107,36 +117,36 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 	case sf::Keyboard::F4:
 		m_pCameraMngr->SetCameraMode(CAM_ORTHO_X);
 		break;
-	case sf::Keyboard::F:
-		bFPSControl = !bFPSControl;
-		m_pCameraMngr->SetFPS(bFPSControl);
-		break;
-	case sf::Keyboard::Add:
-		++m_uActCont;
-		m_uActCont %= 8;
-		if (m_uControllerCount > 0)
-		{
-			while (m_pController[m_uActCont]->uModel == SimplexController_NONE)
-			{
-				++m_uActCont;
-				m_uActCont %= 8;
-			}
-		}
-		break;
-	case sf::Keyboard::Subtract:
-		--m_uActCont;
-		if (m_uActCont > 7)
-			m_uActCont = 7;
-		if (m_uControllerCount > 0)
-		{
-			while (m_pController[m_uActCont]->uModel == SimplexController_NONE)
-			{
-				--m_uActCont;
-				if (m_uActCont > 7)
-					m_uActCont = 7;
-			}
-		}
-		break;
+	//case sf::Keyboard::F:
+	//	bFPSControl = !bFPSControl;
+	//	m_pCameraMngr->SetFPS(bFPSControl);
+	//	break;
+	//case sf::Keyboard::Add:
+	//	++m_uActCont;
+	//	m_uActCont %= 8;
+	//	if (m_uControllerCount > 0)
+	//	{
+	//		while (m_pController[m_uActCont]->uModel == SimplexController_NONE)
+	//		{
+	//			++m_uActCont;
+	//			m_uActCont %= 8;
+	//		}
+	//	}
+	//	break;
+	//case sf::Keyboard::Subtract:
+	//	--m_uActCont;
+	//	if (m_uActCont > 7)
+	//		m_uActCont = 7;
+	//	if (m_uControllerCount > 0)
+	//	{
+	//		while (m_pController[m_uActCont]->uModel == SimplexController_NONE)
+	//		{
+	//			--m_uActCont;
+	//			if (m_uActCont > 7)
+	//				m_uActCont = 7;
+	//		}
+	//	}
+	//	break;
 	case sf::Keyboard::LShift:
 	case sf::Keyboard::RShift:
 		m_bModifier = false;
@@ -346,51 +356,51 @@ void Application::ArcBall(float a_fSensitivity)
 }
 void Application::CameraRotation(float a_fSpeed)
 {
-	if (m_bFPC == false)
-		return;
-
-	UINT	MouseX, MouseY;		// Coordinates for the mouse
-	UINT	CenterX, CenterY;	// Coordinates for the center of the screen.
-
-								//Initialize the position of the pointer to the middle of the screen
-	CenterX = m_pSystem->GetWindowX() + m_pSystem->GetWindowWidth() / 2;
-	CenterY = m_pSystem->GetWindowY() + m_pSystem->GetWindowHeight() / 2;
-
-	//Calculate the position of the mouse and store it
-	POINT pt;
-	GetCursorPos(&pt);
-	MouseX = pt.x;
-	MouseY = pt.y;
-
-	//Calculate the difference in view with the angle
-	float fAngleX = 0.0f;
-	float fAngleY = 0.0f;
-	float fDeltaMouse = 0.0f;
-	if (MouseX < CenterX)
-	{
-		fDeltaMouse = static_cast<float>(CenterX - MouseX);
-		fAngleY += fDeltaMouse * a_fSpeed;
-	}
-	else if (MouseX > CenterX)
-	{
-		fDeltaMouse = static_cast<float>(MouseX - CenterX);
-		fAngleY -= fDeltaMouse * a_fSpeed;
-	}
-
-	if (MouseY < CenterY)
-	{
-		fDeltaMouse = static_cast<float>(CenterY - MouseY);
-		fAngleX -= fDeltaMouse * a_fSpeed;
-	}
-	else if (MouseY > CenterY)
-	{
-		fDeltaMouse = static_cast<float>(MouseY - CenterY);
-		fAngleX += fDeltaMouse * a_fSpeed;
-	}
-	//Change the Yaw and the Pitch of the camera
-	m_pCameraMngr->ChangeYaw(fAngleY * 0.25f);
-	m_pCameraMngr->ChangePitch(-fAngleX * 0.25f);
-	SetCursorPos(CenterX, CenterY);//Position the mouse in the center
+	//if (m_bFPC == false)
+	//	return;
+	//
+	//UINT	MouseX, MouseY;		// Coordinates for the mouse
+	//UINT	CenterX, CenterY;	// Coordinates for the center of the screen.
+	//
+	//							//Initialize the position of the pointer to the middle of the screen
+	//CenterX = m_pSystem->GetWindowX() + m_pSystem->GetWindowWidth() / 2;
+	//CenterY = m_pSystem->GetWindowY() + m_pSystem->GetWindowHeight() / 2;
+	//
+	////Calculate the position of the mouse and store it
+	//POINT pt;
+	//GetCursorPos(&pt);
+	//MouseX = pt.x;
+	//MouseY = pt.y;
+	//
+	////Calculate the difference in view with the angle
+	//float fAngleX = 0.0f;
+	//float fAngleY = 0.0f;
+	//float fDeltaMouse = 0.0f;
+	//if (MouseX < CenterX)
+	//{
+	//	fDeltaMouse = static_cast<float>(CenterX - MouseX);
+	//	fAngleY += fDeltaMouse * a_fSpeed;
+	//}
+	//else if (MouseX > CenterX)
+	//{
+	//	fDeltaMouse = static_cast<float>(MouseX - CenterX);
+	//	fAngleY -= fDeltaMouse * a_fSpeed;
+	//}
+	//
+	//if (MouseY < CenterY)
+	//{
+	//	fDeltaMouse = static_cast<float>(CenterY - MouseY);
+	//	fAngleX -= fDeltaMouse * a_fSpeed;
+	//}
+	//else if (MouseY > CenterY)
+	//{
+	//	fDeltaMouse = static_cast<float>(MouseY - CenterY);
+	//	fAngleX += fDeltaMouse * a_fSpeed;
+	//}
+	////Change the Yaw and the Pitch of the camera
+	//m_pCameraMngr->ChangeYaw(fAngleY * 0.25f);
+	//m_pCameraMngr->ChangePitch(-fAngleX * 0.25f);
+	//SetCursorPos(CenterX, CenterY);//Position the mouse in the center
 }
 //Keyboard
 void Application::ProcessKeyboard(void)
@@ -401,82 +411,103 @@ void Application::ProcessKeyboard(void)
 	This is used for things that are continuously happening,
 	for discreet on/off use ProcessKeyboardPressed/Released
 	*/
-#pragma region Camera Position
-	bool bMultiplier = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) ||
-		sf::Keyboard::isKeyPressed(sf::Keyboard::RShift);
+#pragma region Player Position
+	//bool bMultiplier = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) ||
+	//	sf::Keyboard::isKeyPressed(sf::Keyboard::RShift);
+	//
+	//float fMultiplier = 1.0f;
+	//
+	//if (bMultiplier)
+	//	fMultiplier = 5.0f;
 
-	float fMultiplier = 1.0f;
-
-	if (bMultiplier)
-		fMultiplier = 5.0f;
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		m_pCameraMngr->MoveForward(m_fMovementSpeed * fMultiplier);
-
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
+	{
+		matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
+		lastMat *= glm::translate(IDENTITY_M4, vector3(0.0f, 0.0f, 0.1f));
+		m_pEntityMngr->SetModelMatrix(lastMat, "Player");
+	}
+		
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		m_pCameraMngr->MoveForward(-m_fMovementSpeed * fMultiplier);
-
+	{
+		matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
+		lastMat *= glm::translate(IDENTITY_M4, vector3(0.0f, 0.0f, -0.1f));
+		m_pEntityMngr->SetModelMatrix(lastMat, "Player");
+	}
+	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		m_pCameraMngr->MoveSideways(-m_fMovementSpeed * fMultiplier);
-
+	{
+		matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
+		lastMat *= glm::translate(IDENTITY_M4, vector3(0.1f, 0.0f, 0.0f));
+		m_pEntityMngr->SetModelMatrix(lastMat, "Player");
+	}
+	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		m_pCameraMngr->MoveSideways(m_fMovementSpeed * fMultiplier);
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-		m_pCameraMngr->MoveVertical(-m_fMovementSpeed * fMultiplier);
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-		m_pCameraMngr->MoveVertical(m_fMovementSpeed * fMultiplier);
+	{
+		matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
+		lastMat *= glm::translate(IDENTITY_M4, vector3(-0.1f, 0.0f, 0.0f));
+		m_pEntityMngr->SetModelMatrix(lastMat, "Player");
+	}
+	
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	//{
+	//	matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
+	//}
+	//
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	//{
+	//	matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
+	//}
+	
 #pragma endregion
-	//move the creeper
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		m_v3Creeper.x -= 0.1f;
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		m_v3Creeper.x += 0.1f;
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		if (m_bModifier)
-			m_v3Creeper.z -= 0.1f;
-		else
-			m_v3Creeper.y += 0.1f;
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		if (m_bModifier)
-			m_v3Creeper.z += 0.1f;
-		else
-			m_v3Creeper.y -= 0.1f;
-	}
-
-	//Orient the creeper
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-	{
-		if (m_bModifier)
-			m_qCreeper = m_qCreeper * glm::angleAxis(glm::radians(1.0f), AXIS_X);
-		else
-			m_qCreeper = m_qCreeper * glm::angleAxis(glm::radians(-1.0f), AXIS_X);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
-	{
-		if (m_bModifier)
-			m_qCreeper = m_qCreeper * glm::angleAxis(glm::radians(1.0f), AXIS_Y);
-		else
-			m_qCreeper = m_qCreeper * glm::angleAxis(glm::radians(-1.0f), AXIS_Y);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-	{
-		if (m_bModifier)
-			m_qCreeper = m_qCreeper * glm::angleAxis(glm::radians(1.0f), AXIS_Z);
-		else
-			m_qCreeper = m_qCreeper * glm::angleAxis(glm::radians(-1.0f), AXIS_Z);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-	{
-		m_qCreeper = quaternion();
-	}
+	////move the creeper
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	//	m_v3Creeper.x -= 0.1f;
+	//
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	//	m_v3Creeper.x += 0.1f;
+	//
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	//{
+	//	if (m_bModifier)
+	//		m_v3Creeper.z -= 0.1f;
+	//	else
+	//		m_v3Creeper.y += 0.1f;
+	//}
+	//
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	//{
+	//	if (m_bModifier)
+	//		m_v3Creeper.z += 0.1f;
+	//	else
+	//		m_v3Creeper.y -= 0.1f;
+	//}
+	//
+	////Orient the creeper
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+	//{
+	//	if (m_bModifier)
+	//		m_qCreeper = m_qCreeper * glm::angleAxis(glm::radians(1.0f), AXIS_X);
+	//	else
+	//		m_qCreeper = m_qCreeper * glm::angleAxis(glm::radians(-1.0f), AXIS_X);
+	//}
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
+	//{
+	//	if (m_bModifier)
+	//		m_qCreeper = m_qCreeper * glm::angleAxis(glm::radians(1.0f), AXIS_Y);
+	//	else
+	//		m_qCreeper = m_qCreeper * glm::angleAxis(glm::radians(-1.0f), AXIS_Y);
+	//}
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	//{
+	//	if (m_bModifier)
+	//		m_qCreeper = m_qCreeper * glm::angleAxis(glm::radians(1.0f), AXIS_Z);
+	//	else
+	//		m_qCreeper = m_qCreeper * glm::angleAxis(glm::radians(-1.0f), AXIS_Z);
+	//}
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+	//{
+	//	m_qCreeper = quaternion();
+	//}
 }
 //Joystick
 void Application::ProcessJoystick(void)
