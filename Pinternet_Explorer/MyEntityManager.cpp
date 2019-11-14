@@ -6,6 +6,7 @@ void MyEntityManager::Init(void)
 {
 	m_uEntityCount = 0;
 	m_entityList.clear();
+	
 }
 void MyEntityManager::Release(void)
 {
@@ -175,6 +176,29 @@ void Simplex::MyEntityManager::Update(void)
 		}
 	}
 }
+
+void Simplex::MyEntityManager::Update(int *health) {
+	//check collisions
+
+	
+
+	for (uint i = 0; i < m_uEntityCount - 1; i++)
+	{
+		for (uint j = i + 1; j < m_uEntityCount; j++)
+		{
+			bool tempbool = m_entityList[i]->IsColliding(m_entityList[j]);
+
+			if (m_entityList[i]->GetUniqueID == "Player" && m_entityList[j]->GetUniqueID && tempbool) {
+				health -= 1;
+			}
+			
+		}
+	}
+
+
+
+}
+
 void Simplex::MyEntityManager::AddEntity(String a_sFileName, String a_sUniqueID)
 {
 	//Create a temporal entity to store the object

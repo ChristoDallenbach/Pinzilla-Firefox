@@ -16,6 +16,7 @@ class MyEntityManager
 	uint m_uEntityCount = 0; //number of elements in the list
 	static MyEntityManager* m_pInstance; // Singleton pointer
 	std::vector<MyEntity*> m_entityList; //entities list
+	
 public:
 	/*
 	Usage: Gets the singleton pointer
@@ -78,6 +79,14 @@ public:
 	ARGUMENTS: uint a_uIndex = -1 -> index in the list of entities; if less than 0 it will add it to the last in the list
 	OUTPUT: Model
 	*/
+
+	void Update(int *health);
+	/*
+	does what update does but also passes in health
+	*/
+
+
+
 	Model* GetModel(uint a_uIndex = -1);
 	/*
 	USAGE: Gets the model associated with this entity

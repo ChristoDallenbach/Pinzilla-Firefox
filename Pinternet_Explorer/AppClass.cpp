@@ -24,6 +24,9 @@ void Application::InitVariables(void)
 	//set the model matrix and visibility of the last entity added
 	m_pEntityMngr->SetModelMatrix(glm::scale(vector3(0.3f)) * glm::translate(vector3(0.0f, -4.5f, 8.0f)));
 	m_pEntityMngr->SetAxisVisibility(true);
+
+
+	m_iPlayerHealth = 3;
 }
 void Application::Update(void)
 {
@@ -60,7 +63,7 @@ void Application::Update(void)
 	}
 	
 	//Update Entity Manager
-	m_pEntityMngr->Update();
+	m_pEntityMngr->Update(&m_iPlayerHealth);
 		
 	//Add objects to render list
 	m_pEntityMngr->AddEntityToRenderList(-1, true);

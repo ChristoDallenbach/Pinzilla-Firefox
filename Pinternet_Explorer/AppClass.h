@@ -58,6 +58,9 @@ private:
 	sf::Sound m_sound; //sound effect
 	sf::Music m_soundBGM; //background music
 
+
+	int m_iPlayerHealth;
+
 public:
 #pragma region Constructor / Run / Destructor
 	/*
