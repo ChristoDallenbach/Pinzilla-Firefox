@@ -190,6 +190,7 @@ void Simplex::MyEntityManager::Update(int *health) {
 
 			if (m_entityList[i]->GetUniqueID() == Simplex::String("Player") && m_entityList[j]->GetUniqueID() == Simplex::String("Pin") && tempbool) {
 				health -= 1;
+				RemoveEntity(j);
 			}
 			
 		}
