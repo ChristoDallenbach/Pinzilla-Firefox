@@ -188,7 +188,7 @@ void Simplex::MyEntityManager::Update(int *health) {
 		{
 			bool tempbool = m_entityList[i]->IsColliding(m_entityList[j]);
 
-			if (m_entityList[i]->GetUniqueID == "Player" && m_entityList[j]->GetUniqueID && tempbool) {
+			if (m_entityList[i]->GetUniqueID() == Simplex::String("Player") && m_entityList[j]->GetUniqueID() == Simplex::String("Pin") && tempbool) {
 				health -= 1;
 			}
 			
