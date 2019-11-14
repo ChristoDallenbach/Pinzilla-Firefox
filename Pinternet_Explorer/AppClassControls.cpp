@@ -90,7 +90,7 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 	static bool bFPSControl = false;
 	uint uTemp;
 	matrix4 lastMat;
-	RigidBody* rigidTemp;
+	MyRigidBody* rigidTemp;
 	switch (a_event.key.code)
 	{
 	default: break;

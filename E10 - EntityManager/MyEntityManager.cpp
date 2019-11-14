@@ -32,11 +32,11 @@ Model* Simplex::MyEntityManager::GetModel(String a_sUniqueID)
 {
 	return nullptr;
 }
-RigidBody* Simplex::MyEntityManager::GetRigidBody(uint a_uIndex)
+MyRigidBody* Simplex::MyEntityManager::GetRigidBody(uint a_uIndex)
 {
 	return nullptr;
 }
-RigidBody* Simplex::MyEntityManager::GetRigidBody(String a_sUniqueID)
+MyRigidBody* Simplex::MyEntityManager::GetRigidBody(String a_sUniqueID)
 {
 	return nullptr;
 }

@@ -10,6 +10,7 @@ Date: 2017/06
 #include "ControllerConfiguration.h"
 #include "imgui\ImGuiObject.h"
 
+#include "MyRigidBody.h"
 #include "MyEntityManager.h"
 
 namespace Simplex

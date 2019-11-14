@@ -69,7 +69,7 @@ Model* Simplex::MyEntityManager::GetModel(String a_sUniqueID)
 	}
 	return nullptr;
 }
-RigidBody* Simplex::MyEntityManager::GetRigidBody(uint a_uIndex)
+MyRigidBody* Simplex::MyEntityManager::GetRigidBody(uint a_uIndex)
 {
 	//if the list is empty return blank
 	if (m_entityList.size() == 0)
@@ -81,7 +81,7 @@ RigidBody* Simplex::MyEntityManager::GetRigidBody(uint a_uIndex)
 
 	return m_entityList[a_uIndex]->GetRigidBody();
 }
-RigidBody* Simplex::MyEntityManager::GetRigidBody(String a_sUniqueID)
+MyRigidBody* Simplex::MyEntityManager::GetRigidBody(String a_sUniqueID)
 {
 	//Get the entity
 	MyEntity* pTemp = MyEntity::GetEntity(a_sUniqueID);

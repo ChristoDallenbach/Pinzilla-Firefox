@@ -15,27 +15,27 @@ void Application::InitVariables(void)
 	//creeper
 	m_pCreeper = new Model();
 	m_pCreeper->Load("Minecraft\\Creeper.obj");
-	m_pCreeperRB = new RigidBody(m_pCreeper->GetVertexList());
+	m_pCreeperRB = new MyRigidBody(m_pCreeper->GetVertexList());
 
 	//steve
 	m_pSteve = new Model();
 	m_pSteve->Load("Minecraft\\Steve.obj");
-	m_pSteveRB= new RigidBody(m_pSteve->GetVertexList());
+	m_pSteveRB= new MyRigidBody(m_pSteve->GetVertexList());
 
 	//cow
 	m_pCow = new Model();
 	m_pCow->Load("Minecraft\\Cow.obj");
-	m_pCowRB = new RigidBody(m_pCow->GetVertexList());
+	m_pCowRB = new MyRigidBody(m_pCow->GetVertexList());
 
 	//pig
 	m_pPig = new Model();
 	m_pPig->Load("Minecraft\\Pig.obj");
-	m_pPigRB = new RigidBody(m_pPig->GetVertexList());
+	m_pPigRB = new MyRigidBody(m_pPig->GetVertexList());
 
 	//zombie
 	m_pZombie = new Model();
 	m_pZombie->Load("Minecraft\\Zombie.obj");
-	m_pZombieRB = new RigidBody(m_pZombie->GetVertexList());
+	m_pZombieRB = new MyRigidBody(m_pZombie->GetVertexList());
 }
 void Application::Update(void)
 {

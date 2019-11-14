@@ -25,11 +25,11 @@ class Application
 	Model* m_pZombie = nullptr; //model to display
 	Model* m_pPig = nullptr; //model to display
 
-	RigidBody* m_pCreeperRB = nullptr; //Rigid Body of the model
-	RigidBody* m_pSteveRB = nullptr; //Rigid Body of the model
-	RigidBody* m_pCowRB = nullptr; //Rigid Body of the model
-	RigidBody* m_pZombieRB = nullptr; //Rigid Body of the model
-	RigidBody* m_pPigRB = nullptr; //Rigid Body of the model
+	MyRigidBody* m_pCreeperRB = nullptr; //Rigid Body of the model
+	MyRigidBody* m_pSteveRB = nullptr; //Rigid Body of the model
+	MyRigidBody* m_pCowRB = nullptr; //Rigid Body of the model
+	MyRigidBody* m_pZombieRB = nullptr; //Rigid Body of the model
+	MyRigidBody* m_pPigRB = nullptr; //Rigid Body of the model
 
 private:
 	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu"; //programmer

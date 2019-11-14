@@ -6,6 +6,7 @@ Date: 2017/07
 #define __MYENTITY_H_
 
 #include "Simplex\Simplex.h"
+#include "MyRigidBody.h"
 
 namespace Simplex
 {
@@ -18,7 +19,7 @@ class MyEntity
 	String m_sUniqueID = ""; //Unique identifier name
 
 	Model* m_pModel = nullptr; //Model associated with this Entity
-	RigidBody* m_pRigidBody = nullptr; //Rigid Body associated with this Entity
+	MyRigidBody* m_pRigidBody = nullptr; //Rigid Body associated with this Entity
 
 	matrix4 m_m4ToWorld = IDENTITY_M4; //Model matrix associated with this Entity
 	MeshManager* m_pMeshMngr = nullptr; //For rendering shapes
@@ -81,7 +82,7 @@ public:
 	ARGUMENTS: ---
 	OUTPUT: Rigid Body
 	*/
-	RigidBody* GetRigidBody(void);
+	MyRigidBody* GetRigidBody(void);
 	/*
 	USAGE: Will reply to the question, is the Entity Initialized?
 	ARGUMENTS: ---
