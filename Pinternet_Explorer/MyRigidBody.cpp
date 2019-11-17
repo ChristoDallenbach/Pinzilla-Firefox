@@ -123,6 +123,8 @@ void MyRigidBody::SetModelMatrix(matrix4 a_m4ModelMatrix)
 
 	//we calculate the distance between min and max vectors
 	m_v3ARBBSize = m_v3MaxG - m_v3MinG;
+
+	m_fRadius = glm::distance(m_v3MaxG, m_v3MinG) / 2;
 }
 //The big 3
 MyRigidBody::MyRigidBody(std::vector<vector3> a_pointList)
