@@ -90,14 +90,13 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 	static bool bFPSControl = false;
 	uint uTemp;
 	matrix4 lastMat;
-	MyRigidBody* rigidTemp;
 	switch (a_event.key.code)
 	{
 	default: break;
 	case sf::Keyboard::Escape:
 		m_bRunning = false;
-		break;
-	case sf::Keyboard::E:
+		break;	
+	case sf::Keyboard::R:
 		uTemp = m_pEntityMngr->GetEntityIndex("Ball");
 		if (uTemp != -1)
 		{
@@ -426,40 +425,55 @@ void Application::ProcessKeyboard(void)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
 	{
 		matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
-		lastMat *= glm::translate(IDENTITY_M4, vector3(0.0f, 0.0f, 0.1f));
+		lastMat *= glm::translate(IDENTITY_M4, vector3(0.0f, 0.0f, 0.05f));
 		m_pEntityMngr->SetModelMatrix(lastMat, "Player");
 	}
 		
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
-		lastMat *= glm::translate(IDENTITY_M4, vector3(0.0f, 0.0f, -0.1f));
+		lastMat *= glm::translate(IDENTITY_M4, vector3(0.0f, 0.0f, -0.05f));
 		m_pEntityMngr->SetModelMatrix(lastMat, "Player");
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
-		lastMat *= glm::translate(IDENTITY_M4, vector3(0.1f, 0.0f, 0.0f));
+		lastMat *= glm::translate(IDENTITY_M4, vector3(0.05f, 0.0f, 0.0f));
 		m_pEntityMngr->SetModelMatrix(lastMat, "Player");
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
-		lastMat *= glm::translate(IDENTITY_M4, vector3(-0.1f, 0.0f, 0.0f));
+		lastMat *= glm::translate(IDENTITY_M4, vector3(-0.05f, 0.0f, 0.0f));
 		m_pEntityMngr->SetModelMatrix(lastMat, "Player");
 	}
 	
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-	//{
-	//	matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
-	//}
-	//
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-	//{
-	//	matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
-	//}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	{
+		matrix4 newMat = IDENTITY_M4;
+		matrix4 lastMat = m_pEntityMngr->GetModelMatrix(0);
+		newMat[0][0] = cos(glm::radians(-1.0f));
+		newMat[0][2] = sin(glm::radians(-1.0f));
+		newMat[2][0] = -sin(glm::radians(-1.0f));
+		newMat[2][2] = cos(glm::radians(-1.0f));
+		newMat[1][1] = 1;
+		m_pEntityMngr->SetModelMatrix(lastMat * newMat, 0);
+	}
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	{
+		matrix4 newMat = IDENTITY_M4;
+		matrix4 lastMat = m_pEntityMngr->GetModelMatrix(0);
+		newMat[0][0] = cos(glm::radians(1.0f));
+		newMat[0][2] = sin(glm::radians(1.0f));
+		newMat[2][0] = -sin(glm::radians(1.0f));
+		newMat[2][2] = cos(glm::radians(1.0f));
+		newMat[1][1] = 1;
+		m_pEntityMngr->SetModelMatrix(lastMat * newMat, 0);
+	}
 	
 #pragma endregion
 	////move the creeper

@@ -194,10 +194,14 @@ void Simplex::MyEntityManager::Update(int *health) {
 			bool tempbool = m_entityList[i]->IsColliding(m_entityList[j]);
 
 			if (m_entityList[i]->GetUniqueID() == Simplex::String("Player") && m_entityList[j]->GetUniqueID() == Simplex::String("Pin") && tempbool) {
+				m_entityList[i]->GetRigidBody()->RemoveCollisionWith(m_entityList[j]->GetRigidBody());
 				health -= 1;
 				RemoveEntity(j);
 			}
-			
+			// if the ball and the pin are colliding
+			else if (m_entityList[i]->GetUniqueID() == Simplex::String("Ball") && m_entityList[j]->GetUniqueID() == Simplex::String("Pin") && tempbool) {
+				
+			}	
 		}
 	}
 
