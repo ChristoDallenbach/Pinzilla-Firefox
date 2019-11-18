@@ -18,6 +18,8 @@ class MyEntityManager
 	std::vector<MyEntity*> m_entityList; //entities list
 	
 public:
+	// getter for the forward
+	vector3 GetForward(String a_sUniqueID = "NA");
 	/*
 	Usage: Gets the singleton pointer
 	Arguments: ---

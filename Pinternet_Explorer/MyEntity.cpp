@@ -133,3 +133,8 @@ void Simplex::MyEntity::GenUniqueID(String& a_sUniqueID)
 	}
 	return;
 }
+
+vector3 Simplex::MyEntity::GetForward()
+{
+	return m_pRigidBody->GetForward();
+}

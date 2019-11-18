@@ -59,6 +59,8 @@ public:
 	Output: ---
 	*/
 	void Swap(MyEntity& other);
+	// getter for the forward vector
+	vector3 GetForward(void);
 	/*
 	USAGE: Gets the model matrix associated with this entity
 	ARGUMENTS: ---

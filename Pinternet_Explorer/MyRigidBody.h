@@ -31,6 +31,8 @@ class MyRigidBody
 	vector3 m_v3MinG = ZERO_V3; //minimum coordinate in global space (for ARBB)
 	vector3 m_v3MaxG = ZERO_V3; //maximum coordinate in global space (for ARBB)
 
+	vector3 m_v3Forward = ZERO_V3; //forward vector for checking where to move objects
+
 	vector3 m_v3HalfWidth = ZERO_V3; //half the size of the Oriented Bounding Box
 	vector3 m_v3ARBBSize = ZERO_V3;// size of the Axis (Re)Alligned Bounding Box
 
@@ -105,6 +107,8 @@ public:
 	*/
 	bool IsColliding(MyRigidBody* const a_pOther);
 #pragma region Accessors
+	// getter for the forward vector
+	vector3 GetForward(void);
 	/*
 	Usage: Gets visibility of bounding sphere
 	Arguments: ---
