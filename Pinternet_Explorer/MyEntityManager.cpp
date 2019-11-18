@@ -165,9 +165,9 @@ MyEntityManager::MyEntityManager(MyEntityManager const& other){ }
 MyEntityManager& MyEntityManager::operator=(MyEntityManager const& other) { return *this; }
 MyEntityManager::~MyEntityManager(){Release();};
 // other methods
-vector3 Simplex::MyEntityManager::GetForward(String a_sUniqueID = "NA")
+vector3 Simplex::MyEntityManager::GetForward(Simplex::String a_sUniqueID)
 {
-	return m_entityList[GetEntityIndex(a_sUniqueID)]->GetForward;
+	return m_entityList[GetEntityIndex(a_sUniqueID)]->GetForward();
 }
 
 void Simplex::MyEntityManager::Update(void)

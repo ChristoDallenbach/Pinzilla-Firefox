@@ -19,7 +19,7 @@ class MyEntityManager
 	
 public:
 	// getter for the forward
-	vector3 GetForward(String a_sUniqueID = "NA");
+	vector3 GetForward(Simplex::String a_sUniqueID = Simplex::String("NA"));
 	/*
 	Usage: Gets the singleton pointer
 	Arguments: ---

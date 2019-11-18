@@ -26,6 +26,22 @@ void Application::InitVariables(void)
 	m_pEntityMngr->SetAxisVisibility(true);
 
 
+	//add floor
+	m_pEntityMngr->AddEntity("Minecraft\\Steve.obj","Floor");
+	m_pEntityMngr->SetModelMatrix(glm::scale(vector3(0.0f,0.1f,10.0f)) * glm::translate(vector3(0.0f, -2.0f, 0.0f)));
+	m_pEntityMngr->SetAxisVisibility(true);
+
+	//add left wall
+	m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Left_Wall");
+	m_pEntityMngr->SetModelMatrix(glm::scale(vector3(1.0f,0.5f,10.0f)) * glm::translate(vector3(-2.0f, 0.0f, 0.0f)));
+	m_pEntityMngr->SetAxisVisibility(true);
+
+	//add Right wall
+	m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Right_Wall");
+	m_pEntityMngr->SetModelMatrix(glm::scale(vector3(1.0f,0.5f,10.0f)) * glm::translate(vector3(2.0f, 0.0f, 0.0f)));
+	m_pEntityMngr->SetAxisVisibility(true);
+
+
 	m_iPlayerHealth = 3;
 }
 void Application::Update(void)
