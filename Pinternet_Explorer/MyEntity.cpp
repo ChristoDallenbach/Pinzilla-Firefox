@@ -141,7 +141,7 @@ vector3 Simplex::MyEntity::GetForward()
 
 String Simplex::MyEntity::GetEntityType() {
 	String type = m_sUniqueID;
-	if (type.find('_')) {
+	if (type.find('_') > -1) {
 		int i = type.find('_');
 		return type.substr(0, i);
 	}

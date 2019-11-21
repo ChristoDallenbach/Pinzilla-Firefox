@@ -168,7 +168,6 @@ public:
 	OUTPUT: ---
 	*/
 	void AddEntityToRenderList(String a_sUniqueID, bool a_bRigidBody = false);
-
 	/*
 	USAGE: Will add an entity to the render list with a generated Unique ID
 	ARGUMENTS:
@@ -176,7 +175,7 @@ public:
 	-	String ID -> the ID of the Entity. A Unique version will be generated
 	OUTPUT: ---
 	*/
-	void MyEntityManager::AddTypeEntity(String a_sFileName, String a_sID);
+	void AddTypeEntity(String a_sFileName, String a_sID);
 	
 private:
 	/*

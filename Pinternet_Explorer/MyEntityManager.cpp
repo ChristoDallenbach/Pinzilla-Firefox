@@ -204,9 +204,9 @@ void Simplex::MyEntityManager::Update(int *health) {
 				vector3 collideDirection = tempPin->GetRigidBody()->GetCenterGlobal() - tempBall->GetRigidBody()->GetCenterGlobal();
 				collideDirection.y = 0;
 
-				vector3 newDirection1 = glm::rotateZ(collideDirection, 45.0f);
+				vector3 newDirection1 = glm::rotateZ(collideDirection, glm::radians(45.0f));
 
-				vector3 newDirection2 = glm::rotateZ(collideDirection, -45.0f);
+				vector3 newDirection2 = glm::rotateZ(collideDirection, glm::radians(-45.0f));
 
 				
 
@@ -216,11 +216,9 @@ void Simplex::MyEntityManager::Update(int *health) {
 
 				AddTypeEntity("Sorted\\Pawn.obj", "Pin");
 				SetModelMatrix(tempPin->GetModelMatrix());
-				//SetVelocity to newDirection2 * speeds
+				//SetVelocity to newDirection2 * speed
 				
 				RemoveEntity(j);
-
-				
 
 			}	
 		}
