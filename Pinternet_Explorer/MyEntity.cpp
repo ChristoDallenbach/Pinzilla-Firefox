@@ -148,3 +148,8 @@ String Simplex::MyEntity::GetEntityType() {
 	return type;
 	
 }
+
+vector3 MyEntity::GetVelocity() { return m_pRigidBody->GetVelocity(); }
+void MyEntity::SetVelocity(vector3 a_v3Velocity) { m_pRigidBody->SetVelocity(a_v3Velocity); }
+float MyEntity::GetMass() { return m_pRigidBody->GetMass(); }
+void MyEntity::SetMass(float a_fMass) { m_pRigidBody->SetMass(a_fMass); }

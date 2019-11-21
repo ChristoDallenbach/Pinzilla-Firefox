@@ -105,6 +105,7 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		lastMat = m_pEntityMngr->GetModelMatrix(0);
 		m_pEntityMngr->AddEntity("Planets\\01_Mercury.obj", "Ball");
 		m_pEntityMngr->SetModelMatrix(lastMat * glm::scale(vector3(0.2f)));
+		m_pEntityMngr->SetVelocity(vector3(0.0f, 0.0f, 0.15f), uTemp);
 		m_pEntityMngr->SetAxisVisibility(true);
 		break;
 	case sf::Keyboard::F1:
@@ -421,33 +422,38 @@ void Application::ProcessKeyboard(void)
 	//
 	//if (bMultiplier)
 	//	fMultiplier = 5.0f;
-
+	uint uTemp;
+	vector3 v3Temp;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
 	{
-		matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
-		lastMat *= glm::translate(IDENTITY_M4, vector3(0.0f, 0.0f, 0.05f));
-		m_pEntityMngr->SetModelMatrix(lastMat, "Player");
+		uTemp = m_pEntityMngr->GetEntityIndex("Player");
+		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
+		v3Temp += vector3(0.0f, 0.0f, 0.005f);
+		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
 	}
 		
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
-		lastMat *= glm::translate(IDENTITY_M4, vector3(0.0f, 0.0f, -0.05f));
-		m_pEntityMngr->SetModelMatrix(lastMat, "Player");
+		uTemp = m_pEntityMngr->GetEntityIndex("Player");
+		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
+		v3Temp += vector3(0.0f, 0.0f, -0.005f);
+		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
-		lastMat *= glm::translate(IDENTITY_M4, vector3(0.05f, 0.0f, 0.0f));
-		m_pEntityMngr->SetModelMatrix(lastMat, "Player");
+		uTemp = m_pEntityMngr->GetEntityIndex("Player");
+		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
+		v3Temp += vector3(0.005f, 0.0f, 0.0f);
+		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		matrix4 lastMat = m_pEntityMngr->GetModelMatrix("Player");
-		lastMat *= glm::translate(IDENTITY_M4, vector3(-0.05f, 0.0f, 0.0f));
-		m_pEntityMngr->SetModelMatrix(lastMat, "Player");
+		uTemp = m_pEntityMngr->GetEntityIndex("Player");
+		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
+		v3Temp += vector3(-0.005f, 0.0f, 0.0f);
+		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
 	}
 	
 

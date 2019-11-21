@@ -18,6 +18,13 @@ class MyEntityManager
 	std::vector<MyEntity*> m_entityList; //entities list
 	
 public:
+
+	vector3 GetVelocity(uint a_uIndex = -1);
+	void SetVelocity(vector3 a_v3Velocity, uint a_uIndex = -1);
+	float GetMass(uint a_uIndex = -1);
+	void SetMass(float a_fMass, uint a_uIndex = -1);
+	uint GetCount();
+
 	// getter for the forward
 	vector3 GetForward(Simplex::String a_sUniqueID = Simplex::String("NA"));
 	/*

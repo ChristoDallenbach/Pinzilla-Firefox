@@ -328,3 +328,37 @@ void Simplex::MyEntityManager::AddEntityToRenderList(String a_sUniqueID, bool a_
 		pTemp->AddToRenderList(a_bRigidBody);
 	}
 }
+
+vector3 MyEntityManager::GetVelocity(uint a_uIndex) 
+{ 
+	// if out of bounds
+	if (a_uIndex >= m_uEntityCount)
+		a_uIndex = m_uEntityCount - 1;
+
+	return m_entityList[a_uIndex]->GetVelocity(); 
+}
+void MyEntityManager::SetVelocity(vector3 a_v3Velocity, uint a_uIndex) 
+{ 
+	// if out of bounds
+	if (a_uIndex >= m_uEntityCount)
+		a_uIndex = m_uEntityCount - 1;
+
+	m_entityList[a_uIndex]->SetVelocity(a_v3Velocity); 
+}
+float MyEntityManager::GetMass(uint a_uIndex) 
+{ 
+	// if out of bounds
+	if (a_uIndex >= m_uEntityCount)
+		a_uIndex = m_uEntityCount - 1;
+
+	return m_entityList[a_uIndex]->GetMass(); 
+}
+void MyEntityManager::SetMass(float a_fMass, uint a_uIndex) 
+{ 
+	// if out of bounds
+	if (a_uIndex >= m_uEntityCount)
+		a_uIndex = m_uEntityCount - 1;
+
+	m_entityList[a_uIndex]->SetMass(a_fMass); 
+}
+uint MyEntityManager::GetCount() { return m_uEntityCount; }

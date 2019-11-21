@@ -40,6 +40,9 @@ class MyRigidBody
 
 	std::set<MyRigidBody*> m_CollidingRBSet; //set of rigid bodies this one is colliding with
 
+	vector3 m_v3Velocity = ZERO_V3;
+	float m_fMass = 0.0f;
+
 public:
 	/*
 	Usage: Constructor
@@ -229,6 +232,11 @@ public:
 	Output: ---
 	*/
 	void SetModelMatrix(matrix4 a_m4ModelMatrix);
+
+	vector3 GetVelocity();
+	void SetVelocity(vector3 a_v3Velocity);
+	float GetMass();
+	void SetMass(float a_fMass);
 #pragma endregion
 	
 private:
