@@ -128,6 +128,13 @@ public:
 	*/
 	void SetAxisVisible(bool a_bSetAxis = true);
 
+	/*
+	USAGE: getting the category of an entity from its ID. Example ("Pin" from "Pin_3")
+	ARGUMENTS: none
+	OUTPUT: String
+	*/
+	String GetEntityType();
+
 private:
 	/*
 	Usage: Deallocates member fields

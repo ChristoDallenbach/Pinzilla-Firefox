@@ -138,3 +138,13 @@ vector3 Simplex::MyEntity::GetForward()
 {
 	return m_pRigidBody->GetForward();
 }
+
+String Simplex::MyEntity::GetEntityType() {
+	String type = m_sUniqueID;
+	if (type.find('_')) {
+		int i = type.find('_');
+		return type.substr(0, i);
+	}
+	return type;
+	
+}
