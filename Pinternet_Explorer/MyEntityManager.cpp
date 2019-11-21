@@ -185,22 +185,43 @@ void Simplex::MyEntityManager::Update(void)
 void Simplex::MyEntityManager::Update(int *health) {
 	//check collisions
 
-	
-
 	for (uint i = 0; i < m_uEntityCount - 1; i++)
 	{
 		for (uint j = i + 1; j < m_uEntityCount; j++)
 		{
 			bool tempbool = m_entityList[i]->IsColliding(m_entityList[j]);
 
-			if (m_entityList[i]->GetUniqueID() == Simplex::String("Player") && m_entityList[j]->GetUniqueID() == Simplex::String("Pin") && tempbool) {
+			if (m_entityList[i]->GetUniqueID() == Simplex::String("Player") && m_entityList[j]->GetUniqueID() != Simplex::String("Ball") && tempbool) {
 				m_entityList[i]->GetRigidBody()->RemoveCollisionWith(m_entityList[j]->GetRigidBody());
 				health -= 1;
 				RemoveEntity(j);
 			}
 			// if the ball and the pin are colliding
 			else if (m_entityList[i]->GetUniqueID() == Simplex::String("Ball") && m_entityList[j]->GetUniqueID() == Simplex::String("Pin") && tempbool) {
+				MyEntity* tempBall = m_entityList[i];
+				MyEntity* tempPin = m_entityList[j];
+
+				vector3 collideDirection = tempPin->GetRigidBody()->GetCenterGlobal() - tempBall->GetRigidBody()->GetCenterGlobal();
+				collideDirection.y = 0;
+
+				vector3 newDirection1 = glm::rotateZ(collideDirection, 45.0f);
+
+				vector3 newDirection2 = glm::rotateZ(collideDirection, -45.0f);
+
 				
+
+				AddTypeEntity("Sorted\\Pawn.obj","Pin");
+				SetModelMatrix(tempPin->GetModelMatrix());
+				//SetVelocity to newDirection1 * speed
+
+				AddTypeEntity("Sorted\\Pawn.obj", "Pin");
+				SetModelMatrix(tempPin->GetModelMatrix());
+				//SetVelocity to newDirection2 * speeds
+				
+				RemoveEntity(j);
+
+				
+
 			}	
 		}
 	}
@@ -220,6 +241,19 @@ void Simplex::MyEntityManager::AddEntity(String a_sFileName, String a_sUniqueID)
 		m_uEntityCount = m_entityList.size();
 	}
 }
+
+void Simplex::MyEntityManager::AddTypeEntity(String a_sFileName, String a_sID) {
+	MyEntity* pTemp = new MyEntity(a_sFileName);
+	pTemp->GenUniqueID(a_sID);
+
+	if (pTemp->IsInitialized())
+	{
+		m_entityList.push_back(pTemp);
+		m_uEntityCount = m_entityList.size();
+	}
+}
+
+
 void Simplex::MyEntityManager::RemoveEntity(uint a_uIndex)
 {
 	//if the list is empty return
