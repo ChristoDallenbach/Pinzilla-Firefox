@@ -54,30 +54,115 @@ void Application::Update(void)
 
 	//Is the first person camera active?
 	CameraRotation();
-	
-	////Set model matrix to the creeper
-	//matrix4 mCreeper = glm::translate(m_v3Creeper) * ToMatrix4(m_qCreeper) * ToMatrix4(m_qArcBall);
-	//m_pEntityMngr->SetModelMatrix(mCreeper, "Creeper");
-	//
-	//
-	////Set model matrix to Steve
-	//matrix4 mSteve = glm::translate(vector3(2.5f, 0.0f, 0.0f)) * glm::rotate(IDENTITY_M4, glm::radians(-55.0f), AXIS_Z);
-	//m_pEntityMngr->SetModelMatrix(mSteve, "Steve");
-	//
-	//
-	////Move the last entity added slowly to the right
-	//matrix4 lastMatrix = m_pEntityMngr->GetModelMatrix();// get the model matrix of the last added
-	//lastMatrix *= glm::translate(IDENTITY_M4, vector3(0.01f, 0.0f, 0.0f)); //translate it
-	//m_pEntityMngr->SetModelMatrix(lastMatrix); //return it to its owner
 
-	uint uTemp = m_pEntityMngr->GetEntityIndex("Ball");
+	uint uTemp;
+	matrix4 lastMatrix;
+	vector3 v3Temp;
+
+	// Moving the ball
+	uTemp = m_pEntityMngr->GetEntityIndex("Ball");
 	if (uTemp != -1)
 	{
-		matrix4 lastMatrix = m_pEntityMngr->GetModelMatrix(uTemp);
-		lastMatrix *= glm::translate(IDENTITY_M4, vector3(0.0f, 0.0f, 0.15f));
+		lastMatrix = m_pEntityMngr->GetModelMatrix(uTemp);
+		 v3Temp = m_pEntityMngr->GetVelocity(uTemp);
+		 lastMatrix *= glm::translate(IDENTITY_M4, v3Temp);
+		 if(v3Temp.x <= m_fFriction)
+		{
+		    v3Temp.x = 0.0f;
+		}
+		else
+		{
+		    v3Temp.x -= m_fFriction;
+		}
+		if(v3Temp.y <= m_fFriction)
+		{
+		    v3Temp.y = 0.0f;
+		}
+		else
+		{
+		    v3Temp.y -= m_fFriction;
+		}
+		if(v3Temp.z <= m_fFriction)
+		{
+		    v3Temp.z = 0.0f;
+		}
+		else
+		{
+		    v3Temp.z -= m_fFriction;
+		}
 		m_pEntityMngr->SetModelMatrix(lastMatrix, uTemp);
 	}
-	
+
+	// Moving the Player
+	uTemp = m_pEntityMngr->GetEntityIndex("Player");
+	if (uTemp != -1)
+	{
+		lastMatrix = m_pEntityMngr->GetModelMatrix(uTemp);
+		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
+		lastMatrix *= glm::translate(IDENTITY_M4, v3Temp);
+		if(v3Temp.x <= m_fFriction)
+		{
+		    v3Temp.x = 0.0f;
+		}
+		else
+		{
+		    v3Temp.x -= m_fFriction;
+		}
+		if(v3Temp.y <= m_fFriction)
+		{
+		    v3Temp.y = 0.0f;
+		}
+		else
+		{
+		    v3Temp.y -= m_fFriction;
+		}
+		if(v3Temp.z <= m_fFriction)
+		{
+		    v3Temp.z = 0.0f;
+		}
+		else
+		{
+		    v3Temp.z -= m_fFriction;
+		}
+		m_pEntityMngr->SetModelMatrix(lastMatrix, uTemp);
+	}
+
+	// Moving the Pins
+	for (int i = 0; i < m_pEntityMngr->GetCount(); i++)
+	{	
+		if (m_pEntityMngr->GetUniqueID(i) != "Player" && m_pEntityMngr->GetUniqueID(i) != "Ball")
+		{
+			lastMatrix = m_pEntityMngr->GetModelMatrix(i);
+			v3Temp = m_pEntityMngr->GetVelocity(i);
+			lastMatrix *= glm::translate(IDENTITY_M4, v3Temp);
+			if(v3Temp.x <= m_fFriction)
+			{
+			    v3Temp.x = 0.0f;
+			}
+			else
+			{
+			    v3Temp.x -= m_fFriction;
+			}
+			if(v3Temp.y <= m_fFriction)
+			{
+			    v3Temp.y = 0.0f;
+			}
+			else
+			{
+			    v3Temp.y -= m_fFriction;
+			}
+			if(v3Temp.z <= m_fFriction)
+			{
+			    v3Temp.z = 0.0f;
+			}
+			else
+			{
+			    v3Temp.z -= m_fFriction;
+			}
+			m_pEntityMngr->SetModelMatrix(lastMatrix, i);
+		}
+	}
+
 	//Update Entity Manager
 	m_pEntityMngr->Update(&m_iPlayerHealth);
 		

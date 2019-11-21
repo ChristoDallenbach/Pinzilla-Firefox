@@ -138,3 +138,8 @@ vector3 Simplex::MyEntity::GetForward()
 {
 	return m_pRigidBody->GetForward();
 }
+
+vector3 MyEntity::GetVelocity() { return m_pRigidBody->GetVelocity(); }
+void MyEntity::SetVelocity(vector3 a_v3Velocity) { m_pRigidBody->SetVelocity(a_v3Velocity); }
+float MyEntity::GetMass() { return m_pRigidBody->GetMass(); }
+void MyEntity::SetMass(float a_fMass) { m_pRigidBody->SetMass(a_fMass); }

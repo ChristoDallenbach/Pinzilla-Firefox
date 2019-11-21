@@ -392,3 +392,8 @@ uint MyRigidBody::SAT(MyRigidBody* const a_pOther)
 	//there is no axis test that separates this two objects
 	return eSATResults::SAT_NONE;
 }
+
+vector3 MyRigidBody::GetVelocity() { return m_v3Velocity; }
+void MyRigidBody::SetVelocity(vector3 a_v3Velocity) { m_v3Velocity = a_v3Velocity; }
+float MyRigidBody::GetMass() { return m_fMass; }
+void MyRigidBody::SetMass(float a_fMass) { m_fMass = a_fMass; }

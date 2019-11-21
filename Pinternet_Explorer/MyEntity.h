@@ -27,6 +27,12 @@ class MyEntity
 	static std::map<String, MyEntity*> m_IDMap; //a map of the unique ID's
 
 public:
+
+	vector3 GetVelocity();
+	void SetVelocity(vector3 a_v3Velocity);
+	float GetMass();
+	void SetMass(float a_fMass);
+
 	/*
 	Usage: Constructor that specifies the name attached to the Entity
 	Arguments:
