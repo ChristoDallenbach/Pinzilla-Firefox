@@ -95,7 +95,8 @@ void Simplex::MyEntity::AddToRenderList(bool a_bDrawRigidBody)
 		return;
 
 	//draw model
-	m_pModel->AddToRenderList();
+	if(m_pModel)
+		m_pModel->AddToRenderList();
 	
 	//draw rigid body
 	if(a_bDrawRigidBody)

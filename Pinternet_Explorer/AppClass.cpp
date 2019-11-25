@@ -27,19 +27,19 @@ void Application::InitVariables(void)
 
 
 	////add floor
-	//m_pEntityMngr->AddEntity("Minecraft\\Steve.obj","Floor");
-	//m_pEntityMngr->SetModelMatrix(glm::scale(vector3(0.0f,0.1f,10.0f)) * glm::translate(vector3(0.0f, -10.0f, 0.0f)));
-	//m_pEntityMngr->SetAxisVisibility(true);
+	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj","Floor");
+	m_pEntityMngr->SetModelMatrix(glm::scale(vector3(20.0f,1.0f,40.0f)) * glm::translate(vector3(-0.5f, -10.0f, -0.1f)));
+	m_pEntityMngr->SetAxisVisibility(true);
 	//
 	////add left wall
-	//m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Left_Wall");
-	//m_pEntityMngr->SetModelMatrix(glm::scale(vector3(1.0f,0.5f,10.0f)) * glm::translate(vector3(-2.0f, 0.0f, 0.0f)));
-	//m_pEntityMngr->SetAxisVisibility(true);
+	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", "Left_Wall");
+	m_pEntityMngr->SetModelMatrix(glm::scale(vector3(1.0f,20.0f,40.0f)) * glm::translate(vector3(-10.0f, -0.5f, -0.1f)));
+	m_pEntityMngr->SetAxisVisibility(true);
 	//
 	////add Right wall
-	//m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Right_Wall");
-	//m_pEntityMngr->SetModelMatrix(glm::scale(vector3(1.0f,0.5f,10.0f)) * glm::translate(vector3(2.0f, 0.0f, 0.0f)));
-	//m_pEntityMngr->SetAxisVisibility(true);
+	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", "Right_Wall");
+	m_pEntityMngr->SetModelMatrix(glm::scale(vector3(1.0f,20.0f,40.0f)) * glm::translate(vector3(10.0f, -0.5f, -0.1f)));
+	m_pEntityMngr->SetAxisVisibility(true);
 
 
 	m_iPlayerHealth = 3;
@@ -174,6 +174,9 @@ void Application::Display(void)
 	// Clear the screen
 	ClearScreen();
 	
+	//m_pMeshMngr->AddCubeToRenderList(glm::scale(vector3(2.0, 1.0, 1.0)),C_RED);
+	//RigidBody* pTemp = new RigidBody();
+
 	// draw a skybox
 	m_pMeshMngr->AddSkyboxToRenderList();
 	
