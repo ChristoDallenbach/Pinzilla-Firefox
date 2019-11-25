@@ -62,7 +62,8 @@ private:
 
 	int m_iPlayerHealth;
 
-	float m_fFriction = 0.01f;
+	float m_fFriction = 0.001f;
+	float m_fMaxVel = 0.1f;
 
 public:
 #pragma region Constructor / Run / Destructor

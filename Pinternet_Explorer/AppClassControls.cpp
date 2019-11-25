@@ -105,7 +105,7 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		lastMat = m_pEntityMngr->GetModelMatrix(0);
 		m_pEntityMngr->AddEntity("Planets\\01_Mercury.obj", "Ball");
 		m_pEntityMngr->SetModelMatrix(lastMat * glm::scale(vector3(0.2f)));
-		m_pEntityMngr->SetVelocity(vector3(0.0f, 0.0f, 0.15f), uTemp);
+		m_pEntityMngr->SetVelocity(vector3(0.0f, 0.0f, 0.3f), uTemp);
 		m_pEntityMngr->SetAxisVisibility(true);
 		break;
 	case sf::Keyboard::F1:
@@ -428,7 +428,7 @@ void Application::ProcessKeyboard(void)
 	{
 		uTemp = m_pEntityMngr->GetEntityIndex("Player");
 		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
-		v3Temp += vector3(0.0f, 0.0f, 0.005f);
+		v3Temp += vector3(0.0f, 0.0f, 0.03f);
 		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
 	}
 		
@@ -436,7 +436,7 @@ void Application::ProcessKeyboard(void)
 	{
 		uTemp = m_pEntityMngr->GetEntityIndex("Player");
 		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
-		v3Temp += vector3(0.0f, 0.0f, -0.005f);
+		v3Temp += vector3(0.0f, 0.0f, -0.03f);
 		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
 	}
 	
@@ -444,7 +444,7 @@ void Application::ProcessKeyboard(void)
 	{
 		uTemp = m_pEntityMngr->GetEntityIndex("Player");
 		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
-		v3Temp += vector3(0.005f, 0.0f, 0.0f);
+		v3Temp += vector3(0.03f, 0.0f, 0.0f);
 		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
 	}
 	
@@ -452,7 +452,7 @@ void Application::ProcessKeyboard(void)
 	{
 		uTemp = m_pEntityMngr->GetEntityIndex("Player");
 		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
-		v3Temp += vector3(-0.005f, 0.0f, 0.0f);
+		v3Temp += vector3(-0.03f, 0.0f, 0.0f);
 		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
 	}
 	

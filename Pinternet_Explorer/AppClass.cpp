@@ -65,32 +65,46 @@ void Application::Update(void)
 	{
 		lastMatrix = m_pEntityMngr->GetModelMatrix(uTemp);
 		 v3Temp = m_pEntityMngr->GetVelocity(uTemp);
+		 //v3Temp = glm::normalize(v3Temp);
 		 lastMatrix *= glm::translate(IDENTITY_M4, v3Temp);
-		 if(v3Temp.x <= m_fFriction)
-		{
-		    v3Temp.x = 0.0f;
-		}
-		else
-		{
-		    v3Temp.x -= m_fFriction;
-		}
-		if(v3Temp.y <= m_fFriction)
-		{
-		    v3Temp.y = 0.0f;
-		}
-		else
-		{
-		    v3Temp.y -= m_fFriction;
-		}
-		if(v3Temp.z <= m_fFriction)
-		{
-		    v3Temp.z = 0.0f;
-		}
-		else
-		{
-		    v3Temp.z -= m_fFriction;
-		}
+		 if (v3Temp.x <= m_fFriction && v3Temp.x >= -m_fFriction)
+		 {
+			 v3Temp.x = 0.0f;
+		 }
+		 else if (v3Temp.x <= m_fFriction)
+		 {
+			 v3Temp.x += m_fFriction;
+		 }
+		 else if (v3Temp.x >= m_fFriction)
+		 {
+			 v3Temp.x -= m_fFriction;
+		 }
+		 if (v3Temp.y <= m_fFriction && v3Temp.y >= -m_fFriction)
+		 {
+			 v3Temp.y = 0.0f;
+		 }
+		 else if (v3Temp.y <= m_fFriction)
+		 {
+			 v3Temp.y += m_fFriction;
+		 }
+		 else if (v3Temp.y >= m_fFriction)
+		 {
+			 v3Temp.y -= m_fFriction;
+		 }
+		 if (v3Temp.z <= m_fFriction && v3Temp.z >= -m_fFriction)
+		 {
+			 v3Temp.z = 0.0f;
+		 }
+		 else if (v3Temp.z <= m_fFriction)
+		 {
+			 v3Temp.z += m_fFriction;
+		 }
+		 else if (v3Temp.z >= m_fFriction)
+		 {
+			 v3Temp.z -= m_fFriction;
+		 }
 		m_pEntityMngr->SetModelMatrix(lastMatrix, uTemp);
+		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
 	}
 
 	// Moving the Player
@@ -99,32 +113,46 @@ void Application::Update(void)
 	{
 		lastMatrix = m_pEntityMngr->GetModelMatrix(uTemp);
 		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
+		//v3Temp = glm::normalize(v3Temp);
 		lastMatrix *= glm::translate(IDENTITY_M4, v3Temp);
-		if(v3Temp.x <= m_fFriction)
+		if(v3Temp.x <= m_fFriction && v3Temp.x >= -m_fFriction)
 		{
 		    v3Temp.x = 0.0f;
 		}
-		else
+		else if(v3Temp.x <= m_fFriction)
 		{
-		    v3Temp.x -= m_fFriction;
+		    v3Temp.x += m_fFriction;
 		}
-		if(v3Temp.y <= m_fFriction)
+		else if (v3Temp.x >= m_fFriction)
 		{
-		    v3Temp.y = 0.0f;
+			v3Temp.x -= m_fFriction;
 		}
-		else
+		if (v3Temp.y <= m_fFriction && v3Temp.y >= -m_fFriction)
 		{
-		    v3Temp.y -= m_fFriction;
+			v3Temp.y = 0.0f;
 		}
-		if(v3Temp.z <= m_fFriction)
+		else if (v3Temp.y <= m_fFriction)
 		{
-		    v3Temp.z = 0.0f;
+			v3Temp.y += m_fFriction;
 		}
-		else
+		else if (v3Temp.y >= m_fFriction)
 		{
-		    v3Temp.z -= m_fFriction;
+			v3Temp.y -= m_fFriction;
+		}
+		if (v3Temp.z <= m_fFriction && v3Temp.z >= -m_fFriction)
+		{
+			v3Temp.z = 0.0f;
+		}
+		else if (v3Temp.z <= m_fFriction)
+		{
+			v3Temp.z += m_fFriction;
+		}
+		else if (v3Temp.z >= m_fFriction)
+		{
+			v3Temp.z -= m_fFriction;
 		}
 		m_pEntityMngr->SetModelMatrix(lastMatrix, uTemp);
+		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
 	}
 
 	// Moving the Pins
@@ -134,32 +162,46 @@ void Application::Update(void)
 		{
 			lastMatrix = m_pEntityMngr->GetModelMatrix(i);
 			v3Temp = m_pEntityMngr->GetVelocity(i);
+			//v3Temp = glm::normalize(v3Temp);
 			lastMatrix *= glm::translate(IDENTITY_M4, v3Temp);
-			if(v3Temp.x <= m_fFriction)
+			if (v3Temp.x <= m_fFriction && v3Temp.x >= -m_fFriction)
 			{
-			    v3Temp.x = 0.0f;
+				v3Temp.x = 0.0f;
 			}
-			else
+			else if (v3Temp.x <= m_fFriction)
 			{
-			    v3Temp.x -= m_fFriction;
+				v3Temp.x += m_fFriction;
 			}
-			if(v3Temp.y <= m_fFriction)
+			else if (v3Temp.x >= m_fFriction)
 			{
-			    v3Temp.y = 0.0f;
+				v3Temp.x -= m_fFriction;
 			}
-			else
+			if (v3Temp.y <= m_fFriction && v3Temp.y >= -m_fFriction)
 			{
-			    v3Temp.y -= m_fFriction;
+				v3Temp.y = 0.0f;
 			}
-			if(v3Temp.z <= m_fFriction)
+			else if (v3Temp.y <= m_fFriction)
 			{
-			    v3Temp.z = 0.0f;
+				v3Temp.y += m_fFriction;
 			}
-			else
+			else if (v3Temp.y >= m_fFriction)
 			{
-			    v3Temp.z -= m_fFriction;
+				v3Temp.y -= m_fFriction;
+			}
+			if (v3Temp.z <= m_fFriction && v3Temp.z >= -m_fFriction)
+			{
+				v3Temp.z = 0.0f;
+			}
+			else if (v3Temp.z <= m_fFriction)
+			{
+				v3Temp.z += m_fFriction;
+			}
+			else if (v3Temp.z >= m_fFriction)
+			{
+				v3Temp.z -= m_fFriction;
 			}
 			m_pEntityMngr->SetModelMatrix(lastMatrix, i);
+			m_pEntityMngr->SetVelocity(v3Temp, uTemp);
 		}
 	}
 
