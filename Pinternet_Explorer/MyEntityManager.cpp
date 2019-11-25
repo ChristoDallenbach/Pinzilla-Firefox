@@ -192,40 +192,40 @@ void Simplex::MyEntityManager::Update(int *health) {
 			bool tempbool = m_entityList[i]->IsColliding(m_entityList[j]);
 			
 			// if the player and walls are colliding
-			if (m_entityList[i]->GetUniqueID() == Simplex::String("Player") && m_entityList[j]->GetUniqueID() != Simplex::String("Left_Wall") && tempbool)
-			{
-				
-			}
-			else if (m_entityList[i]->GetUniqueID() == Simplex::String("Player") && m_entityList[j]->GetUniqueID() != Simplex::String("Right_Wall") && tempbool)
-			{
-
-			}
-			// if the ball and walls are colliding
-			else if (((m_entityList[i]->GetUniqueID() == Simplex::String("Ball") && m_entityList[j]->GetUniqueID() != Simplex::String("Left_Wall")) || (m_entityList[i]->GetUniqueID() == Simplex::String("Left_Wall") && m_entityList[j]->GetUniqueID() != Simplex::String("Ball"))) && tempbool)
-			{
-
-			}
-			else if (((m_entityList[i]->GetUniqueID() == Simplex::String("Ball") && m_entityList[j]->GetUniqueID() != Simplex::String("Right_Wall")) || (m_entityList[i]->GetUniqueID() == Simplex::String("Right_Wall") && m_entityList[j]->GetUniqueID() != Simplex::String("Ball"))) && tempbool)
-			{
-
-			}
-			// if the pins and walls are colliding
-			else if (m_entityList[i]->GetUniqueID() == Simplex::String("Left_Wall") && m_entityList[j]->GetUniqueID() != Simplex::String("Player") && m_entityList[j]->GetUniqueID() != Simplex::String("Player") && tempbool)
-			{
-
-			}
-			else if (m_entityList[i]->GetUniqueID() == Simplex::String("Right_Wall") && m_entityList[j]->GetUniqueID() != Simplex::String("Left_Wall") && tempbool)
-			{
-
-			}
+			//if (m_entityList[i]->GetUniqueID() == Simplex::String("Player") && m_entityList[j]->GetUniqueID() != Simplex::String("Left_Wall") && tempbool)
+			//{
+			//	
+			//}
+			//else if (m_entityList[i]->GetUniqueID() == Simplex::String("Player") && m_entityList[j]->GetUniqueID() != Simplex::String("Right_Wall") && tempbool)
+			//{
+			//
+			//}
+			//// if the ball and walls are colliding
+			//else if (((m_entityList[i]->GetUniqueID() == Simplex::String("Ball") && m_entityList[j]->GetUniqueID() != Simplex::String("Left_Wall")) || (m_entityList[i]->GetUniqueID() == Simplex::String("Left_Wall") && m_entityList[j]->GetUniqueID() != Simplex::String("Ball"))) && tempbool)
+			//{
+			//
+			//}
+			//else if (((m_entityList[i]->GetUniqueID() == Simplex::String("Ball") && m_entityList[j]->GetUniqueID() != Simplex::String("Right_Wall")) || (m_entityList[i]->GetUniqueID() == Simplex::String("Right_Wall") && m_entityList[j]->GetUniqueID() != Simplex::String("Ball"))) && tempbool)
+			//{
+			//
+			//}
+			//// if the pins and walls are colliding
+			//else if (m_entityList[i]->GetUniqueID() == Simplex::String("Left_Wall") && m_entityList[j]->GetUniqueID() != Simplex::String("Player") && m_entityList[j]->GetUniqueID() != Simplex::String("Player") && tempbool)
+			//{
+			//
+			//}
+			//else if (m_entityList[i]->GetUniqueID() == Simplex::String("Right_Wall") && m_entityList[j]->GetUniqueID() != Simplex::String("Left_Wall") && tempbool)
+			//{
+			//
+			//}
 			// player and pin
-			else if (m_entityList[i]->GetUniqueID() == Simplex::String("Player") && m_entityList[j]->GetUniqueID() != Simplex::String("Ball") && tempbool) {
+			if (m_entityList[i]->GetUniqueID() == Simplex::String("Player") && m_entityList[j]->GetUniqueID() != Simplex::String("Ball") && tempbool) {
 				m_entityList[i]->GetRigidBody()->RemoveCollisionWith(m_entityList[j]->GetRigidBody());
 				health -= 1;
 				RemoveEntity(j);
 			}
 			// if the ball and the pin are colliding
-			else if (((m_entityList[i]->GetUniqueID() == Simplex::String("Ball") && m_entityList[j]->GetUniqueID() != Simplex::String("Player")) || (m_entityList[i]->GetUniqueID() != Simplex::String("Player") && m_entityList[j]->GetUniqueID() == Simplex::String("Ball"))) && tempbool) {
+			if (((m_entityList[i]->GetUniqueID() == Simplex::String("Ball") && m_entityList[j]->GetUniqueID() != Simplex::String("Player")) || (m_entityList[i]->GetUniqueID() != Simplex::String("Player") && m_entityList[j]->GetUniqueID() == Simplex::String("Ball"))) && tempbool) {
 				MyEntity* tempBall = m_entityList[i];
 				MyEntity* tempPin = m_entityList[j];
 
@@ -239,12 +239,12 @@ void Simplex::MyEntityManager::Update(int *health) {
 				AddTypeEntity("Sorted\\Pawn.obj","Pin");
 				m_entityList[m_uEntityCount - 1]->SetModelMatrix(tempPin->GetModelMatrix());
 				//SetVelocity to newDirection1 * speed
-				m_entityList[m_uEntityCount - 1]->SetVelocity(newDirection1 * .1f);
+				m_entityList[m_uEntityCount - 1]->SetVelocity(newDirection1 * .3f);
 
 				AddTypeEntity("Sorted\\Pawn.obj", "Pin");
 				m_entityList[m_uEntityCount - 1]->SetModelMatrix(tempPin->GetModelMatrix());
 				//SetVelocity to newDirection2 * speed
-				m_entityList[m_uEntityCount - 1]->SetVelocity(newDirection2 * .1f);
+				m_entityList[m_uEntityCount - 1]->SetVelocity(newDirection2 * .3f);
 
 				m_entityList[i]->GetRigidBody()->RemoveCollisionWith(m_entityList[j]->GetRigidBody());
 				RemoveEntity(i);

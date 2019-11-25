@@ -28,17 +28,17 @@ void Application::InitVariables(void)
 
 	////add floor
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj","Floor");
-	m_pEntityMngr->SetModelMatrix(glm::scale(vector3(20.0f,1.0f,40.0f)) * glm::translate(vector3(-0.5f, -10.0f, -0.1f)));
+	m_pEntityMngr->SetModelMatrix(glm::scale(IDENTITY_M4, vector3(20.0f,1.0f,40.0f)) * glm::translate(IDENTITY_M4, vector3(-0.5f, -10.0f, -0.1f)));
 	m_pEntityMngr->SetAxisVisibility(true);
 	//
 	////add left wall
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", "Left_Wall");
-	m_pEntityMngr->SetModelMatrix(glm::scale(vector3(1.0f,20.0f,40.0f)) * glm::translate(vector3(-10.0f, -0.5f, -0.1f)));
+	m_pEntityMngr->SetModelMatrix(glm::scale(IDENTITY_M4, vector3(1.0f,20.0f,40.0f)) * glm::translate(IDENTITY_M4, vector3(-10.0f, -0.5f, -0.1f)));
 	m_pEntityMngr->SetAxisVisibility(true);
 	//
 	////add Right wall
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", "Right_Wall");
-	m_pEntityMngr->SetModelMatrix(glm::scale(vector3(1.0f,20.0f,40.0f)) * glm::translate(vector3(10.0f, -0.5f, -0.1f)));
+	m_pEntityMngr->SetModelMatrix(glm::scale(IDENTITY_M4, vector3(1.0f,20.0f,40.0f)) * glm::translate(IDENTITY_M4, vector3(10.0f, -0.5f, -0.1f)));
 	m_pEntityMngr->SetAxisVisibility(true);
 
 
@@ -63,7 +63,7 @@ void Application::Update(void)
 	uTemp = m_pEntityMngr->GetEntityIndex("Ball");
 	if (uTemp != -1)
 	{
-		lastMatrix = m_pEntityMngr->GetModelMatrix(uTemp);
+		 lastMatrix = m_pEntityMngr->GetModelMatrix(uTemp);
 		 v3Temp = m_pEntityMngr->GetVelocity(uTemp);
 		 //v3Temp = glm::normalize(v3Temp);
 		 lastMatrix *= glm::translate(IDENTITY_M4, v3Temp);
@@ -79,18 +79,6 @@ void Application::Update(void)
 		 {
 			 v3Temp.x -= m_fFriction;
 		 }
-		 if (v3Temp.y <= m_fFriction && v3Temp.y >= -m_fFriction)
-		 {
-			 v3Temp.y = 0.0f;
-		 }
-		 else if (v3Temp.y <= m_fFriction)
-		 {
-			 v3Temp.y += m_fFriction;
-		 }
-		 else if (v3Temp.y >= m_fFriction)
-		 {
-			 v3Temp.y -= m_fFriction;
-		 }
 		 if (v3Temp.z <= m_fFriction && v3Temp.z >= -m_fFriction)
 		 {
 			 v3Temp.z = 0.0f;
@@ -103,6 +91,18 @@ void Application::Update(void)
 		 {
 			 v3Temp.z -= m_fFriction;
 		 }
+
+		 //// checking x pos
+		 //if (m_pEntityMngr->GetRigidBody(uTemp)->GetMaxGlobal().x + v3Temp.x >= 40.0f || m_pEntityMngr->GetRigidBody(uTemp)->GetMinGlobal().x - v3Temp.x <= -40.0f)
+		 //{
+		 //	 v3Temp.x = v3Temp.x * (-1.0f);
+		 //}
+		 //// checking z pos
+		 //if (m_pEntityMngr->GetRigidBody(uTemp)->GetMaxGlobal().z + v3Temp.z >= 10.0f || m_pEntityMngr->GetRigidBody(uTemp)->GetMinGlobal().z - v3Temp.z <= -10.0f)
+		 //{
+		 //	 v3Temp.z = v3Temp.z * (-1.0f);
+		 //}
+
 		m_pEntityMngr->SetModelMatrix(lastMatrix, uTemp);
 		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
 	}
@@ -127,18 +127,6 @@ void Application::Update(void)
 		{
 			v3Temp.x -= m_fFriction;
 		}
-		if (v3Temp.y <= m_fFriction && v3Temp.y >= -m_fFriction)
-		{
-			v3Temp.y = 0.0f;
-		}
-		else if (v3Temp.y <= m_fFriction)
-		{
-			v3Temp.y += m_fFriction;
-		}
-		else if (v3Temp.y >= m_fFriction)
-		{
-			v3Temp.y -= m_fFriction;
-		}
 		if (v3Temp.z <= m_fFriction && v3Temp.z >= -m_fFriction)
 		{
 			v3Temp.z = 0.0f;
@@ -151,6 +139,18 @@ void Application::Update(void)
 		{
 			v3Temp.z -= m_fFriction;
 		}
+
+		// checking x pos
+		//if (m_pEntityMngr->GetRigidBody(uTemp)->GetMaxGlobal().x + v3Temp.x >= 40.0f || m_pEntityMngr->GetRigidBody(uTemp)->GetMinGlobal().x - v3Temp.x <= -40.0f)
+		//{
+		//	v3Temp.x = v3Temp.x * (-1.0f);
+		//}
+		//// checking z pos
+		//if (m_pEntityMngr->GetRigidBody(uTemp)->GetMaxGlobal().z + v3Temp.z >= 10.0f || m_pEntityMngr->GetRigidBody(uTemp)->GetMinGlobal().z - v3Temp.z <= -10.0f)
+		//{
+		//	v3Temp.z = v3Temp.z * (-1.0f);
+		//}
+
 		m_pEntityMngr->SetModelMatrix(lastMatrix, uTemp);
 		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
 	}
@@ -176,18 +176,6 @@ void Application::Update(void)
 			{
 				v3Temp.x -= m_fFriction;
 			}
-			if (v3Temp.y <= m_fFriction && v3Temp.y >= -m_fFriction)
-			{
-				v3Temp.y = 0.0f;
-			}
-			else if (v3Temp.y <= m_fFriction)
-			{
-				v3Temp.y += m_fFriction;
-			}
-			else if (v3Temp.y >= m_fFriction)
-			{
-				v3Temp.y -= m_fFriction;
-			}
 			if (v3Temp.z <= m_fFriction && v3Temp.z >= -m_fFriction)
 			{
 				v3Temp.z = 0.0f;
@@ -200,8 +188,20 @@ void Application::Update(void)
 			{
 				v3Temp.z -= m_fFriction;
 			}
+
+			//// checking x pos
+			//if (m_pEntityMngr->GetRigidBody(i)->GetMaxGlobal().x + v3Temp.x >= 40.0f || m_pEntityMngr->GetRigidBody(i)->GetMinGlobal().x - v3Temp.x <= -40.0f)
+			//{
+			//	v3Temp.x = v3Temp.x * (-1.0f);
+			//}
+			//// checking z pos
+			//if (m_pEntityMngr->GetRigidBody(i)->GetMaxGlobal().z + v3Temp.z >= 10.0f || m_pEntityMngr->GetRigidBody(i)->GetMinGlobal().z - v3Temp.z <= -10.0f)
+			//{
+			//	v3Temp.z = v3Temp.z * (-1.0f);
+			//}
+
 			m_pEntityMngr->SetModelMatrix(lastMatrix, i);
-			m_pEntityMngr->SetVelocity(v3Temp, uTemp);
+			m_pEntityMngr->SetVelocity(v3Temp, i);
 		}
 	}
 

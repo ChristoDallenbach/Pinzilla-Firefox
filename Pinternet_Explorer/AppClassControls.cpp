@@ -422,38 +422,37 @@ void Application::ProcessKeyboard(void)
 	//
 	//if (bMultiplier)
 	//	fMultiplier = 5.0f;
-	uint uTemp;
 	vector3 v3Temp;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
 	{
-		uTemp = m_pEntityMngr->GetEntityIndex("Player");
-		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
-		v3Temp += vector3(0.0f, 0.0f, 0.03f);
-		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
+		v3Temp = m_pEntityMngr->GetVelocity(0);
+		if (v3Temp.z < .05f)
+			v3Temp += vector3(0.0f, 0.0f, 0.03f);
+		m_pEntityMngr->SetVelocity(v3Temp, 0);
 	}
 		
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		uTemp = m_pEntityMngr->GetEntityIndex("Player");
-		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
-		v3Temp += vector3(0.0f, 0.0f, -0.03f);
-		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
+		v3Temp = m_pEntityMngr->GetVelocity(0);
+		if(v3Temp.z > -.05f)
+			v3Temp += vector3(0.0f, 0.0f, -0.03f);
+		m_pEntityMngr->SetVelocity(v3Temp, 0);
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		uTemp = m_pEntityMngr->GetEntityIndex("Player");
-		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
-		v3Temp += vector3(0.03f, 0.0f, 0.0f);
-		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
+		v3Temp = m_pEntityMngr->GetVelocity(0);
+		if(v3Temp.x < .05f)
+			v3Temp += vector3(0.03f, 0.0f, 0.0f);
+		m_pEntityMngr->SetVelocity(v3Temp, 0);
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		uTemp = m_pEntityMngr->GetEntityIndex("Player");
-		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
-		v3Temp += vector3(-0.03f, 0.0f, 0.0f);
-		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
+		v3Temp = m_pEntityMngr->GetVelocity(0);
+		if(v3Temp.x > -.05f)
+			v3Temp += vector3(-0.03f, 0.0f, 0.0f);
+		m_pEntityMngr->SetVelocity(v3Temp, 0);
 	}
 	
 
