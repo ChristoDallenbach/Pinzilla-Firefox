@@ -249,7 +249,28 @@ void Simplex::MyEntityManager::Update(int *health) {
 				m_entityList[i]->GetRigidBody()->RemoveCollisionWith(m_entityList[j]->GetRigidBody());
 				RemoveEntity(i);
 				RemoveEntity(j);
-			}	
+			}
+
+
+			if (m_entityList[i]->GetEntityType() == Simplex::String("Pin") && m_entityList[j]->GetEntityType() == Simplex::String("Pin")) {
+				
+
+				
+				vector3 newVeli = m_entityList[i]->GetVelocity();
+				newVeli.x = newVeli.x - m_entityList[j]->GetVelocity().x;
+				newVeli.y = 0;
+				newVeli.z = newVeli.z - m_entityList[j]->GetVelocity().z;
+
+				vector3 newVelj = m_entityList[j]->GetVelocity();
+				newVelj.x = newVelj.x - m_entityList[i]->GetVelocity().x;
+				newVelj.y = 0;
+				newVelj.z = newVelj.z - m_entityList[i]->GetVelocity().z;
+
+				m_entityList[i]->SetVelocity(newVeli);
+				m_entityList[j]->SetVelocity(newVelj);
+
+			}
+
 		}
 	}
 }
