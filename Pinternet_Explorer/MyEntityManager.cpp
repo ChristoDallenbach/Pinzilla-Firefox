@@ -187,6 +187,13 @@ void Simplex::MyEntityManager::Update(int *health) {
 
 	for (uint i = 0; i < m_uEntityCount - 1; i++)
 	{
+		//checks if the object is out of bounds on the x axis. If it is, it reverses its x direction so it bounces off the wall.
+		if (m_entityList[i]->GetRigidBody()->GetMaxGlobal().x >= 10.0f || m_entityList[i]->GetRigidBody()->GetMinGlobal().x <= -10.0f) {
+			vector3 tempvelocity = m_entityList[i]->GetVelocity();
+			tempvelocity.x *= -1;
+			m_entityList[i]->SetVelocity(tempvelocity);
+		}
+
 		for (uint j = i + 1; j < m_uEntityCount; j++)
 		{
 			bool tempbool = m_entityList[i]->IsColliding(m_entityList[j]);
