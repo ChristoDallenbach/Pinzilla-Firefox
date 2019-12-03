@@ -190,10 +190,14 @@ void Simplex::MyEntityManager::Update(int *health) {
 	for (uint i = 0; i < m_uEntityCount - 1; i++)
 	{
 		//checks if the object is out of bounds on the x axis. If it is, it reverses its x direction so it bounces off the wall.
-		if (m_entityList[i]->GetRigidBody()->GetMaxGlobal().x >= 10.0f || m_entityList[i]->GetRigidBody()->GetMinGlobal().x <= -10.0f) {
-			vector3 tempvelocity = m_entityList[i]->GetVelocity();
-			tempvelocity.x *= -1;
-			m_entityList[i]->SetVelocity(tempvelocity);
+		if (m_entityList[i]->GetRigidBody()->GetMaxGlobal().x >= 9.0f || m_entityList[i]->GetRigidBody()->GetMinGlobal().x <= -9.0f) {
+			vector4 tempVert = vector4(m_entityList[i]->GetVelocity(), 0);
+			matrix4 modelMatrix = m_entityList[i]->GetModelMatrix();
+
+			tempVert = tempVert * glm::inverse(modelMatrix);
+			vector3 tempVert2 = glm::reflect(vector3(tempVert), vector3(1, 0, 0));
+			tempVert2 = vector3(vector4(tempVert2, 0) * modelMatrix);
+			m_entityList[i]->SetVelocity(tempVert2);
 		}
 
 		for (uint j = i + 1; j < m_uEntityCount; j++)
