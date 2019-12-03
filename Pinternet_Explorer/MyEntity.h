@@ -34,6 +34,7 @@ public:
 	void SetVelocity(vector3 a_v3Velocity);
 	float GetMass();
 	void SetMass(float a_fMass);
+	uint GetNumId();
 	void SetNumId(uint a_uNumId);
 
 	/*

@@ -232,7 +232,7 @@ void Simplex::MyEntityManager::Update(int *health) {
 			//
 			//}
 			// player and pin
-			if (m_entityList[i]->GetUniqueID() == Simplex::String("Player") && m_entityList[j]->GetUniqueID() != Simplex::String("Ball") && tempbool) {
+			if (m_entityList[i]->GetNumId() == 0 && m_entityList[j]->GetNumId() == 1 && tempbool) {
 				m_entityList[i]->GetRigidBody()->RemoveCollisionWith(m_entityList[j]->GetRigidBody());
 				health -= 1;
 				RemoveEntity(j);
@@ -249,12 +249,12 @@ void Simplex::MyEntityManager::Update(int *health) {
 
 				vector3 newDirection2 = glm::rotateY(collideDirection, glm::radians(-45.0f));
 
-				AddTypeEntity("Sorted\\Pawn.obj","Pin");
+				AddTypeEntity("Sorted\\Pawn.obj", 1, "Pin");
 				m_entityList[m_uEntityCount - 1]->SetModelMatrix(tempPin->GetModelMatrix());
 				//SetVelocity to newDirection1 * speed
 				m_entityList[m_uEntityCount - 1]->SetVelocity(newDirection1 * .3f);
 
-				AddTypeEntity("Sorted\\Pawn.obj", "Pin");
+				AddTypeEntity("Sorted\\Pawn.obj", 1, "Pin");
 				m_entityList[m_uEntityCount - 1]->SetModelMatrix(tempPin->GetModelMatrix());
 				//SetVelocity to newDirection2 * speed
 				m_entityList[m_uEntityCount - 1]->SetVelocity(newDirection2 * .3f);
@@ -301,12 +301,13 @@ void Simplex::MyEntityManager::AddEntity(String a_sFileName, uint a_uNumId, Stri
 	}
 }
 
-void Simplex::MyEntityManager::AddTypeEntity(String a_sFileName, String a_sID) {
+void Simplex::MyEntityManager::AddTypeEntity(String a_sFileName, uint a_uNumId, String a_sID) {
 	MyEntity* pTemp = new MyEntity(a_sFileName);
 	pTemp->GenUniqueID(a_sID);
 
 	if (pTemp->IsInitialized())
 	{
+		pTemp->SetNumId(a_uNumId);
 		m_entityList.push_back(pTemp);
 		m_uEntityCount = m_entityList.size();
 	}

@@ -182,7 +182,7 @@ public:
 	-	String ID -> the ID of the Entity. A Unique version will be generated
 	OUTPUT: ---
 	*/
-	void AddTypeEntity(String a_sFileName, String a_sID);
+	void AddTypeEntity(String a_sFileName, uint a_uNumId, String a_sID);
 
 private:
 	/*
