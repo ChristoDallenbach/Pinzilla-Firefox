@@ -183,7 +183,7 @@ public:
 	OUTPUT: ---
 	*/
 	void AddTypeEntity(String a_sFileName, String a_sID);
-	
+
 private:
 	/*
 	Usage: constructor
