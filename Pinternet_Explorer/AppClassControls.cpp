@@ -103,7 +103,7 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 			m_pEntityMngr->RemoveEntity(uTemp);
 		}
 		lastMat = m_pEntityMngr->GetModelMatrix(0);
-		m_pEntityMngr->AddEntity("Planets\\01_Mercury.obj", "Ball");
+		m_pEntityMngr->AddEntity("Planets\\01_Mercury.obj", 2, "Ball");
 		m_pEntityMngr->SetModelMatrix(lastMat * glm::scale(vector3(0.2f)));
 		m_pEntityMngr->SetVelocity(vector3(0.0f, 0.0f, 0.3f), uTemp);
 		m_pEntityMngr->SetAxisVisibility(true);

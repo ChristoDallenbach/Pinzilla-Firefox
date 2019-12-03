@@ -14,30 +14,30 @@ void Application::InitVariables(void)
 	m_pEntityMngr = MyEntityManager::GetInstance();
 
 	//add player entity
-	m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Player");
+	m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", 0, "Player");
 	//set the model matrix and visibility of the last entity added
 	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(0.0f,-2.0f,-2.0f)));
 	m_pEntityMngr->SetAxisVisibility(true);
 
 	//add an entity
-	m_pEntityMngr->AddEntity("Sorted\\Pawn.obj", "Pin");
+	m_pEntityMngr->AddEntity("Sorted\\Pawn.obj", 1, "Pin");
 	//set the model matrix and visibility of the last entity added
 	m_pEntityMngr->SetModelMatrix(glm::scale(vector3(0.3f)) * glm::translate(vector3(0.0f, -4.5f, 8.0f)));
 	m_pEntityMngr->SetAxisVisibility(true);
 
 
 	////add floor
-	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj","Floor");
+	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", 5, "Floor");
 	m_pEntityMngr->SetModelMatrix(glm::scale(IDENTITY_M4, vector3(20.0f,1.0f,40.0f)) * glm::translate(IDENTITY_M4, vector3(-0.5f, -10.0f, -0.1f)));
 	m_pEntityMngr->SetAxisVisibility(true);
 	//
 	////add left wall
-	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", "Left_Wall");
+	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", 3, "Left_Wall");
 	m_pEntityMngr->SetModelMatrix(glm::scale(IDENTITY_M4, vector3(1.0f,20.0f,40.0f)) * glm::translate(IDENTITY_M4, vector3(-10.0f, -0.5f, -0.1f)));
 	m_pEntityMngr->SetAxisVisibility(true);
 	//
 	////add Right wall
-	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", "Right_Wall");
+	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", 4, "Right_Wall");
 	m_pEntityMngr->SetModelMatrix(glm::scale(IDENTITY_M4, vector3(1.0f,20.0f,40.0f)) * glm::translate(IDENTITY_M4, vector3(10.0f, -0.5f, -0.1f)));
 	m_pEntityMngr->SetAxisVisibility(true);
 

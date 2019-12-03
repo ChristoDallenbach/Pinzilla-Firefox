@@ -185,6 +185,8 @@ void Simplex::MyEntityManager::Update(void)
 void Simplex::MyEntityManager::Update(int *health) {
 	//check collisions
 
+	// The Items m_uNumId
+	// Player = 0, Pin = 1, Ball = 2, Left_Wall = 3, Right_Wall = 4, Floor = 5
 	for (uint i = 0; i < m_uEntityCount - 1; i++)
 	{
 		//checks if the object is out of bounds on the x axis. If it is, it reverses its x direction so it bounces off the wall.
@@ -282,13 +284,14 @@ void Simplex::MyEntityManager::Update(int *health) {
 	}
 }
 
-void Simplex::MyEntityManager::AddEntity(String a_sFileName, String a_sUniqueID)
+void Simplex::MyEntityManager::AddEntity(String a_sFileName, uint a_uNumId, String a_sUniqueID)
 {
 	//Create a temporal entity to store the object
 	MyEntity* pTemp = new MyEntity(a_sFileName, a_sUniqueID);
 	//if I was able to generate it add it to the list
 	if (pTemp->IsInitialized())
 	{
+		pTemp->SetNumId(a_uNumId);
 		m_entityList.push_back(pTemp);
 		m_uEntityCount = m_entityList.size();
 	}
