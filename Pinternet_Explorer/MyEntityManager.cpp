@@ -236,7 +236,7 @@ void Simplex::MyEntityManager::Update(int *health) {
 				MyEntity* tempBall = m_entityList[i];
 				MyEntity* tempPin = m_entityList[j];
 
-				vector3 collideDirection = tempBall->GetRigidBody()->GetCenterGlobal() - tempPin->GetRigidBody()->GetCenterGlobal();
+				vector3 collideDirection = glm::normalize(tempBall->GetRigidBody()->GetCenterGlobal());
 				collideDirection.y = 0;
 
 				vector3 newDirection1 = glm::rotateY(collideDirection, glm::radians(45.0f));
