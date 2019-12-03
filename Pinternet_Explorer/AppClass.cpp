@@ -41,8 +41,8 @@ void Application::InitVariables(void)
 	m_pEntityMngr->SetModelMatrix(glm::scale(IDENTITY_M4, vector3(1.0f,20.0f,40.0f)) * glm::translate(IDENTITY_M4, vector3(10.0f, -0.5f, -0.1f)));
 	m_pEntityMngr->SetAxisVisibility(true);
 
-
 	m_iPlayerHealth = 3;
+
 }
 void Application::Update(void)
 {
@@ -158,7 +158,7 @@ void Application::Update(void)
 	// Moving the Pins
 	for (int i = 0; i < m_pEntityMngr->GetCount(); i++)
 	{	
-		if (m_pEntityMngr->GetUniqueID(i) != "Player" && m_pEntityMngr->GetUniqueID(i) != "Ball")
+		if (m_pEntityMngr->GetUniqueID(i) != "Player" && m_pEntityMngr->GetUniqueID(i) != "Ball" && m_pEntityMngr->GetUniqueID(i) != "Left_Wall" && m_pEntityMngr->GetUniqueID(i) != "Right_Wall" && m_pEntityMngr->GetUniqueID(i) != "Floor")
 		{
 			lastMatrix = m_pEntityMngr->GetModelMatrix(i);
 			v3Temp = m_pEntityMngr->GetVelocity(i);
@@ -188,17 +188,6 @@ void Application::Update(void)
 			{
 				v3Temp.z -= m_fFriction;
 			}
-
-			//// checking x pos
-			//if (m_pEntityMngr->GetRigidBody(i)->GetMaxGlobal().x + v3Temp.x >= 40.0f || m_pEntityMngr->GetRigidBody(i)->GetMinGlobal().x - v3Temp.x <= -40.0f)
-			//{
-			//	v3Temp.x = v3Temp.x * (-1.0f);
-			//}
-			//// checking z pos
-			//if (m_pEntityMngr->GetRigidBody(i)->GetMaxGlobal().z + v3Temp.z >= 10.0f || m_pEntityMngr->GetRigidBody(i)->GetMinGlobal().z - v3Temp.z <= -10.0f)
-			//{
-			//	v3Temp.z = v3Temp.z * (-1.0f);
-			//}
 
 			m_pEntityMngr->SetModelMatrix(lastMatrix, i);
 			m_pEntityMngr->SetVelocity(v3Temp, i);
