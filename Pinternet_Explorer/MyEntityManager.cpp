@@ -325,16 +325,14 @@ void Simplex::MyEntityManager::Update(int *health) {
 					vector3 VelocityE = PinE->GetVelocity();
 					vector3 VelocityR = PinR->GetVelocity();
 
-					uint angle = (glm::dot(VelocityE, VelocityR) / (glm::dot(glm::length(VelocityE), glm::length(VelocityR))));
-					angle = glm::acos(angle);
+					vector3 normalvector = PinE->GetRigidBody()->GetCenterGlobal() - PinR->GetRigidBody()->GetCenterGlobal();
+					normalvector.y = 0;
 
-					vector2 reflectvector;
+					VelocityE = glm::reflect(VelocityE, normalvector);
+					VelocityR = glm::reflect(VelocityR, normalvector);
 
-					
-					
-
-
-
+				//uint angle = (glm::dot(VelocityE, VelocityR) / (glm::dot(glm::length(VelocityE), glm::length(VelocityR))));
+				//angle = glm::acos(angle);
 				}
 			}
 		}
