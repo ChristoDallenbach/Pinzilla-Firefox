@@ -239,7 +239,7 @@ void Simplex::MyEntityManager::Update(int *health) {
 				tempbool = false;
 			}
 			// if the ball and the pin are colliding
-			if (((m_entityList[i]->GetNumId() == 1 && m_entityList[j]->GetNumId() == 2) || (m_entityList[i]->GetNumId() == 2 && m_entityList[j]->GetNumId() == 1 && tempbool))&& tempbool) {
+			if (((m_entityList[i]->GetNumId() == 1 && m_entityList[j]->GetNumId() == 2) || (m_entityList[i]->GetNumId() == 2 && m_entityList[j]->GetNumId() == 1))&& tempbool) {
 				MyEntity* tempBall = m_entityList[i];
 				MyEntity* tempPin = m_entityList[j];
 
@@ -466,3 +466,65 @@ void MyEntityManager::SetMass(float a_fMass, uint a_uIndex)
 	m_entityList[a_uIndex]->SetMass(a_fMass); 
 }
 uint MyEntityManager::GetCount() { return m_uEntityCount; }
+
+uint MyEntityManager::GetNumId(uint a_uIndex) { return m_entityList[a_uIndex]->GetNumId(); }
+
+void MyEntityManager::SetDimension(uint a_uIndex) 
+{
+	vector3 v3TempMin = vector3(0.0f);
+	vector3 v3TempMax = vector3(0.0f);
+	MyEntity* entityTemp = m_entityList[a_uIndex];
+	std::vector<uint> listTemp;
+
+	// 18 wide unknown tall
+
+	// top left - 0
+	v3TempMin.x = -9.0f;
+	v3TempMax.x = 0.0f;
+	v3TempMin.z = 0.0f;
+	v3TempMax.z = 9.0f;
+	
+	if (entityTemp->GetRigidBody()->GetMaxGlobal().x >= v3TempMin.x && entityTemp->GetRigidBody()->GetMinGlobal().x <= v3TempMax.x
+		&& entityTemp->GetRigidBody()->GetMaxGlobal().z >= v3TempMin.z && entityTemp->GetRigidBody()->GetMinGlobal().z <= v3TempMax.z)
+	{
+		listTemp.push_back(0);
+	}
+		
+	// top right - 1
+	v3TempMin.x = 0.0f;
+	v3TempMax.x = 9.0f;
+	v3TempMin.z = 0.0f;
+	v3TempMax.z = 9.0f;
+	
+	if (entityTemp->GetRigidBody()->GetMaxGlobal().x >= v3TempMin.x && entityTemp->GetRigidBody()->GetMinGlobal().x <= v3TempMax.x
+		&& entityTemp->GetRigidBody()->GetMaxGlobal().z >= v3TempMin.z && entityTemp->GetRigidBody()->GetMinGlobal().z <= v3TempMax.z)
+	{
+		listTemp.push_back(1);
+	}
+
+	// bottom left - 2
+	v3TempMin.x = -9.0f;
+	v3TempMax.x = 0.0f;
+	v3TempMin.z = -9.0f;
+	v3TempMax.z = 0.0f;
+	
+	if (entityTemp->GetRigidBody()->GetMaxGlobal().x >= v3TempMin.x && entityTemp->GetRigidBody()->GetMinGlobal().x <= v3TempMax.x
+		&& entityTemp->GetRigidBody()->GetMaxGlobal().z >= v3TempMin.z && entityTemp->GetRigidBody()->GetMinGlobal().z <= v3TempMax.z)
+	{
+		listTemp.push_back(2);
+	}
+
+	// bottom right - 3
+	v3TempMin.x = 0.0f;
+	v3TempMax.x = 9.0f;
+	v3TempMin.z = -9.0f;
+	v3TempMax.z = 0.0f;
+
+	if (entityTemp->GetRigidBody()->GetMaxGlobal().x >= v3TempMin.x && entityTemp->GetRigidBody()->GetMinGlobal().x <= v3TempMax.x
+		&& entityTemp->GetRigidBody()->GetMaxGlobal().z >= v3TempMin.z && entityTemp->GetRigidBody()->GetMinGlobal().z <= v3TempMax.z)
+	{
+		listTemp.push_back(3);
+	}
+
+	entityTemp->SetDimension(listTemp);
+}

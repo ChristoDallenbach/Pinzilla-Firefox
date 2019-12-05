@@ -16,7 +16,7 @@ class MyEntityManager
 	uint m_uEntityCount = 0; //number of elements in the list
 	static MyEntityManager* m_pInstance; // Singleton pointer
 	std::vector<MyEntity*> m_entityList; //entities list
-	
+
 public:
 
 	vector3 GetVelocity(uint a_uIndex = -1);
@@ -24,6 +24,8 @@ public:
 	float GetMass(uint a_uIndex = -1);
 	void SetMass(float a_fMass, uint a_uIndex = -1);
 	uint GetCount();
+	uint GetNumId(uint a_uIndex);
+	void SetDimension(uint a_uIndex);
 
 	// getter for the forward
 	vector3 GetForward(Simplex::String a_sUniqueID = Simplex::String("NA"));

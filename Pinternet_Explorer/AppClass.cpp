@@ -57,6 +57,7 @@ void Application::Update(void)
 
 	uint uTemp;
 	matrix4 lastMatrix;
+	matrix4 matrixTemp;
 	vector3 v3Temp;
 
 	// Moving the ball
@@ -64,6 +65,7 @@ void Application::Update(void)
 	if (uTemp != -1)
 	{
 		 lastMatrix = m_pEntityMngr->GetModelMatrix(uTemp);
+		 matrixTemp = lastMatrix;
 		 v3Temp = m_pEntityMngr->GetVelocity(uTemp);
 		 //v3Temp = glm::normalize(v3Temp);
 		 lastMatrix *= glm::translate(IDENTITY_M4, v3Temp);
@@ -105,6 +107,11 @@ void Application::Update(void)
 
 		m_pEntityMngr->SetModelMatrix(lastMatrix, uTemp);
 		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
+
+		if (lastMatrix != matrixTemp)
+		{
+			m_pEntityMngr->SetDimension(uTemp);
+		}
 	}
 
 	// Moving the Player
@@ -112,6 +119,7 @@ void Application::Update(void)
 	if (uTemp != -1)
 	{
 		lastMatrix = m_pEntityMngr->GetModelMatrix(uTemp);
+		matrixTemp = lastMatrix;
 		v3Temp = m_pEntityMngr->GetVelocity(uTemp);
 		//v3Temp = glm::normalize(v3Temp);
 		lastMatrix *= glm::translate(IDENTITY_M4, v3Temp);
@@ -153,14 +161,20 @@ void Application::Update(void)
 
 		m_pEntityMngr->SetModelMatrix(lastMatrix, uTemp);
 		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
+
+		if (lastMatrix != matrixTemp)
+		{
+			m_pEntityMngr->SetDimension(uTemp);
+		}
 	}
 
 	// Moving the Pins
 	for (int i = 0; i < m_pEntityMngr->GetCount(); i++)
 	{	
-		if (m_pEntityMngr->GetUniqueID(i) != "Player" && m_pEntityMngr->GetUniqueID(i) != "Ball" && m_pEntityMngr->GetUniqueID(i) != "Left_Wall" && m_pEntityMngr->GetUniqueID(i) != "Right_Wall" && m_pEntityMngr->GetUniqueID(i) != "Floor")
+		if (m_pEntityMngr->GetNumId(i) == 1)
 		{
 			lastMatrix = m_pEntityMngr->GetModelMatrix(i);
+			matrixTemp = lastMatrix;
 			v3Temp = m_pEntityMngr->GetVelocity(i);
 			//v3Temp = glm::normalize(v3Temp);
 			lastMatrix *= glm::translate(IDENTITY_M4, v3Temp);
@@ -191,6 +205,11 @@ void Application::Update(void)
 
 			m_pEntityMngr->SetModelMatrix(lastMatrix, i);
 			m_pEntityMngr->SetVelocity(v3Temp, i);
+
+			if (lastMatrix != matrixTemp)
+			{
+				m_pEntityMngr->SetDimension(i);
+			}
 		}
 	}
 

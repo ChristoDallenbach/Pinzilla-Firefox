@@ -156,3 +156,29 @@ float MyEntity::GetMass() { return m_pRigidBody->GetMass(); }
 void MyEntity::SetMass(float a_fMass) { m_pRigidBody->SetMass(a_fMass); }
 uint MyEntity::GetNumId() { return m_uNumId; }
 void MyEntity::SetNumId(uint a_uNumId) { m_uNumId = a_uNumId; }
+void MyEntity::SetDimension(std::vector<uint> a_lDimensions)
+{
+	m_lDimensions.clear();
+	m_uDimensionCount = a_lDimensions.size();
+	for (int i = 0; i < m_uDimensionCount; i++)
+	{
+		m_lDimensions.push_back(a_lDimensions[i]);
+	}
+}
+bool MyEntity::CheckDimension(MyEntity a_entity)
+{
+	bool tempBool = false;
+
+	for (int i = 0; i < m_uDimensionCount; i++)
+	{
+		for (int j = 0; j < a_entity.m_uDimensionCount; j++)
+		{
+			if (m_lDimensions[i] == m_lDimensions[j])
+			{
+				tempBool = true;
+			}
+		}
+	}
+
+	return tempBool;
+}
