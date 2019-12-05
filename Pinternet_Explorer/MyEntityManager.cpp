@@ -238,7 +238,7 @@ void Simplex::MyEntityManager::Update(int *health) {
 				RemoveEntity(j);
 			}
 			// if the ball and the pin are colliding
-			if (((m_entityList[i]->GetUniqueID() == Simplex::String("Ball") && m_entityList[j]->GetUniqueID() != Simplex::String("Player")) || (m_entityList[i]->GetUniqueID() != Simplex::String("Player") && m_entityList[j]->GetUniqueID() == Simplex::String("Ball"))) && tempbool) {
+			if (((m_entityList[i]->GetNumId() == 1 && m_entityList[j]->GetNumId() == 2) || (m_entityList[i]->GetNumId() == 2 && m_entityList[j]->GetNumId() == 1 && tempbool))&& tempbool) {
 				MyEntity* tempBall = m_entityList[i];
 				MyEntity* tempPin = m_entityList[j];
 
@@ -264,25 +264,25 @@ void Simplex::MyEntityManager::Update(int *health) {
 				RemoveEntity(j);
 			}
 
-
-			if (m_entityList[i]->GetEntityType() == Simplex::String("Pin") && m_entityList[j]->GetEntityType() == Simplex::String("Pin")) {
-				
-
-				
-				vector3 newVeli = m_entityList[i]->GetVelocity();
-				newVeli.x = newVeli.x - m_entityList[j]->GetVelocity().x;
-				newVeli.y = 0;
-				newVeli.z = newVeli.z - m_entityList[j]->GetVelocity().z;
-
-				vector3 newVelj = m_entityList[j]->GetVelocity();
-				newVelj.x = newVelj.x - m_entityList[i]->GetVelocity().x;
-				newVelj.y = 0;
-				newVelj.z = newVelj.z - m_entityList[i]->GetVelocity().z;
-
-				m_entityList[i]->SetVelocity(newVeli);
-				m_entityList[j]->SetVelocity(newVelj);
-
-			}
+			//// pin and pin collision
+			//if (m_entityList[i]->GetNumId() == 1 && m_entityList[j]->GetNumId() == 1 && tempbool) {
+			//	
+			//
+			//	
+			//	vector3 newVeli = m_entityList[i]->GetVelocity();
+			//	newVeli.x = newVeli.x - m_entityList[j]->GetVelocity().x;
+			//	newVeli.y = 0;
+			//	newVeli.z = newVeli.z - m_entityList[j]->GetVelocity().z;
+			//
+			//	vector3 newVelj = m_entityList[j]->GetVelocity();
+			//	newVelj.x = newVelj.x - m_entityList[i]->GetVelocity().x;
+			//	newVelj.y = 0;
+			//	newVelj.z = newVelj.z - m_entityList[i]->GetVelocity().z;
+			//
+			//	m_entityList[i]->SetVelocity(newVeli);
+			//	m_entityList[j]->SetVelocity(newVelj);
+			//
+			//}
 
 		}
 	}
