@@ -18,28 +18,32 @@ void Application::InitVariables(void)
 	//set the model matrix and visibility of the last entity added
 	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(0.0f,-2.0f,-2.0f)));
 	m_pEntityMngr->SetAxisVisibility(true);
+	m_pEntityMngr->SetDimension(0);
 
 	//add an entity
 	m_pEntityMngr->AddEntity("Sorted\\Pawn.obj", 1, "Pin");
 	//set the model matrix and visibility of the last entity added
 	m_pEntityMngr->SetModelMatrix(glm::scale(vector3(0.3f)) * glm::translate(vector3(0.0f, -4.5f, 8.0f)));
 	m_pEntityMngr->SetAxisVisibility(true);
-
+	m_pEntityMngr->SetDimension(1);
 
 	////add floor
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", 5, "Floor");
 	m_pEntityMngr->SetModelMatrix(glm::scale(IDENTITY_M4, vector3(20.0f,1.0f,40.0f)) * glm::translate(IDENTITY_M4, vector3(-0.5f, -10.0f, -0.1f)));
 	m_pEntityMngr->SetAxisVisibility(true);
-	//
+	m_pEntityMngr->SetDimension(2);
+
 	////add left wall
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", 3, "Left_Wall");
 	m_pEntityMngr->SetModelMatrix(glm::scale(IDENTITY_M4, vector3(1.0f,20.0f,40.0f)) * glm::translate(IDENTITY_M4, vector3(-10.0f, -0.5f, -0.1f)));
 	m_pEntityMngr->SetAxisVisibility(true);
-	//
+	m_pEntityMngr->SetDimension(3);
+
 	////add Right wall
 	m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", 4, "Right_Wall");
 	m_pEntityMngr->SetModelMatrix(glm::scale(IDENTITY_M4, vector3(1.0f,20.0f,40.0f)) * glm::translate(IDENTITY_M4, vector3(10.0f, -0.5f, -0.1f)));
 	m_pEntityMngr->SetAxisVisibility(true);
+	m_pEntityMngr->SetDimension(4);
 
 	m_iPlayerHealth = 3;
 
