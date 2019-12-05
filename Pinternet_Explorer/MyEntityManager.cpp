@@ -267,11 +267,13 @@ void Simplex::MyEntityManager::Update(int *health) {
 				m_entityList[m_uEntityCount - 1]->SetModelMatrix(firstPin);
 				//SetVelocity to newDirection1 * speed
 				m_entityList[m_uEntityCount - 1]->SetVelocity(newDirection1 * .3f);
+				SetDimension(m_uEntityCount - 1);
 
 				AddTypeEntity("Sorted\\Pawn.obj", 1, "Pin");
 				m_entityList[m_uEntityCount - 1]->SetModelMatrix(secondPin);
 				//SetVelocity to newDirection2 * speed
 				m_entityList[m_uEntityCount - 1]->SetVelocity(newDirection2 * .3f);
+				SetDimension(m_uEntityCount - 1);
 
 				m_entityList[i]->GetRigidBody()->RemoveCollisionWith(m_entityList[j]->GetRigidBody());
 				RemoveEntity(i);
