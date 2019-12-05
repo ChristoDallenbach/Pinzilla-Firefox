@@ -187,7 +187,7 @@ void Simplex::MyEntityManager::Update(int *health) {
 
 	// The Items m_uNumId
 	// Player = 0, Pin = 1, Ball = 2, Left_Wall = 3, Right_Wall = 4, Floor = 5
-	for (uint i = 0; i < m_uEntityCount - 1; i++)
+	for (uint i = 0; i < m_uEntityCount; i++)
 	{
 		//checks if the object is out of bounds on the x axis. If it is, it reverses its x direction so it bounces off the wall.
 		if (m_entityList[i]->GetRigidBody()->GetMaxGlobal().x >= 9.0f || m_entityList[i]->GetRigidBody()->GetMinGlobal().x <= -9.0f) {
@@ -236,6 +236,7 @@ void Simplex::MyEntityManager::Update(int *health) {
 				m_entityList[i]->GetRigidBody()->RemoveCollisionWith(m_entityList[j]->GetRigidBody());
 				health -= 1;
 				RemoveEntity(j);
+				tempbool = false;
 			}
 			// if the ball and the pin are colliding
 			if (((m_entityList[i]->GetNumId() == 1 && m_entityList[j]->GetNumId() == 2) || (m_entityList[i]->GetNumId() == 2 && m_entityList[j]->GetNumId() == 1 && tempbool))&& tempbool) {
@@ -249,41 +250,82 @@ void Simplex::MyEntityManager::Update(int *health) {
 
 				vector3 newDirection2 = glm::rotateY(collideDirection, glm::radians(-45.0f));
 
+				vector3 minPosition = tempPin->GetRigidBody()->GetMinGlobal();
+				minPosition.y = 0;
+				minPosition = tempPin->GetRigidBody()->GetCenterGlobal() - minPosition;
+				matrix4 firstPin = tempPin->GetModelMatrix();
+				firstPin = glm::translate(firstPin, newDirection1 * 10.0f);
+				
+
+				vector3 maxPosition = tempPin->GetRigidBody()->GetMaxGlobal();
+				maxPosition.y = 0;
+				maxPosition = tempPin->GetRigidBody()->GetCenterGlobal() - maxPosition;
+				matrix4 secondPin = tempPin->GetModelMatrix();
+				secondPin = glm::translate(secondPin, newDirection2 * 10.0f);
+
 				AddTypeEntity("Sorted\\Pawn.obj", 1, "Pin");
-				m_entityList[m_uEntityCount - 1]->SetModelMatrix(tempPin->GetModelMatrix());
+				m_entityList[m_uEntityCount - 1]->SetModelMatrix(firstPin);
 				//SetVelocity to newDirection1 * speed
 				m_entityList[m_uEntityCount - 1]->SetVelocity(newDirection1 * .3f);
 
 				AddTypeEntity("Sorted\\Pawn.obj", 1, "Pin");
-				m_entityList[m_uEntityCount - 1]->SetModelMatrix(tempPin->GetModelMatrix());
+				m_entityList[m_uEntityCount - 1]->SetModelMatrix(secondPin);
 				//SetVelocity to newDirection2 * speed
 				m_entityList[m_uEntityCount - 1]->SetVelocity(newDirection2 * .3f);
 
 				m_entityList[i]->GetRigidBody()->RemoveCollisionWith(m_entityList[j]->GetRigidBody());
 				RemoveEntity(i);
 				RemoveEntity(j);
+				tempbool = false;
 			}
 
 			//// pin and pin collision
-			//if (m_entityList[i]->GetNumId() == 1 && m_entityList[j]->GetNumId() == 1 && tempbool) {
-			//	
-			//
-			//	
-			//	vector3 newVeli = m_entityList[i]->GetVelocity();
-			//	newVeli.x = newVeli.x - m_entityList[j]->GetVelocity().x;
-			//	newVeli.y = 0;
-			//	newVeli.z = newVeli.z - m_entityList[j]->GetVelocity().z;
-			//
-			//	vector3 newVelj = m_entityList[j]->GetVelocity();
-			//	newVelj.x = newVelj.x - m_entityList[i]->GetVelocity().x;
-			//	newVelj.y = 0;
-			//	newVelj.z = newVelj.z - m_entityList[i]->GetVelocity().z;
-			//
-			//	m_entityList[i]->SetVelocity(newVeli);
-			//	m_entityList[j]->SetVelocity(newVelj);
-			//
-			//}
+		//if (m_entityList[i]->GetNumId() == 1 && m_entityList[j]->GetNumId() == 1 && tempbool) {
+		//	
+		//
+		//	
+		//	vector3 newVeli = m_entityList[i]->GetVelocity();
+		//	vector3 newVelj = m_entityList[j]->GetVelocity();
+		//
+		//	if ((newVeli.x < 0 && newVelj.x > 0) || (newVeli.x > 0 && newVelj.x < 0)) {
+		//		newVeli.x = newVeli.x - m_entityList[j]->GetVelocity().x;
+		//		newVelj.x = newVelj.x - m_entityList[i]->GetVelocity().x;
+		//	}
+		//
+		//	if ((newVeli.z < 0 && newVelj.z > 0) || (newVeli.z > 0 && newVelj.z < 0)) {
+		//		newVeli.z = newVeli.z - m_entityList[j]->GetVelocity().z;
+		//		newVelj.z = newVelj.z - m_entityList[i]->GetVelocity().z;
+		//	}
+		//
+		//	newVeli.y = 0;
+		//	newVelj.y = 0;
+		//
+		//	
+		//
+		//	m_entityList[i]->SetVelocity(newVeli);
+		//	m_entityList[j]->SetVelocity(newVelj);
+		//	tempbool = false;
+		//}
 
+		}
+	}
+
+
+	//seperate algo for pin to pin collision
+	for (uint e = 0; e < m_uEntityCount; e++) {
+		if (m_entityList[e]->GetNumId() == 1) {
+			for (uint r = e + 1; r < m_uEntityCount; r++) {
+				if (m_entityList[r]->GetNumId() == 1 && m_entityList[e]->IsColliding(m_entityList[r])) {
+
+					MyEntity* PinE = m_entityList[e];
+					MyEntity* PinR = m_entityList[r];
+
+
+
+
+
+				}
+			}
 		}
 	}
 }
