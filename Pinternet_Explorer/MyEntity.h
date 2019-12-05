@@ -27,6 +27,8 @@ class MyEntity
 	static std::map<String, MyEntity*> m_IDMap; //a map of the unique ID's
 
 	uint m_uNumId;
+	uint m_uDimensionCount;
+	std::vector<uint> m_lDimensions;
 
 public:
 
@@ -36,6 +38,8 @@ public:
 	void SetMass(float a_fMass);
 	uint GetNumId();
 	void SetNumId(uint a_uNumId);
+	void SetDimension(std::vector<uint> a_lDimensions);
+	bool CheckDimension(MyEntity a_entity);
 
 	/*
 	Usage: Constructor that specifies the name attached to the Entity
