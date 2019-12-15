@@ -154,16 +154,8 @@ void Application::DrawGUI(void)
 				ImGui::GetIO().Framerate, 1000.0f / ImGui::GetIO().Framerate);
 			ImGui::Text("Control:\n");
 			ImGui::Text("   WASD: Movement\n");
-			ImGui::Text("	 F1: Perspective\n");
-			ImGui::Text("	 F2: Orthographic X\n");
-			ImGui::Text("	 F3: Orthographic Y\n");
-			ImGui::Text("	 F4: Orthographic Z\n");
-			ImGui::Separator();
-			ImGui::Text("  Left: Move Creeper\n");
-			ImGui::Text(" Right: Move Creeper\n");
-			ImGui::Text("    Up: Move Creeper\n");
-			ImGui::Text("  Down: Move Creeper\n");
-			ImGui::Text(" Shift: Modify Up/Down\n");
+			ImGui::Text("	  QE: Rotation\n");
+			ImGui::Text("	   R: Fire Ball\n");
 			ImGui::Separator();
 			ImGui::TextColored(ImColor(255, 255, 0), "Entity Manager\n");
 		}

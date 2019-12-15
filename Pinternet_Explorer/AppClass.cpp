@@ -16,7 +16,7 @@ void Application::InitVariables(void)
 	//add player entity
 	m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", 0, "Player");
 	//set the model matrix and visibility of the last entity added
-	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(0.0f,-2.0f,-2.0f)));
+	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(0.0f,-2.0f,-1.0f)));
 	m_pEntityMngr->SetAxisVisibility(true);
 	m_pEntityMngr->SetDimension(0);
 
