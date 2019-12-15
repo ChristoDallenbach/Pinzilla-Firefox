@@ -39,7 +39,7 @@ public:
 	uint GetNumId();
 	void SetNumId(uint a_uNumId);
 	void SetDimension(std::vector<uint> a_lDimensions);
-	bool CheckDimension(MyEntity a_entity);
+	bool CheckDimension(MyEntity* a_entity);
 
 	/*
 	Usage: Constructor that specifies the name attached to the Entity

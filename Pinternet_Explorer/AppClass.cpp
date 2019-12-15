@@ -4,7 +4,7 @@ void Application::InitVariables(void)
 {
 	//Set the position and target of the camera
 	m_pCameraMngr->SetPositionTargetAndUpward(
-		vector3(0.0f, 15.0f, 6.0f), //Position
+		vector3(0.0f, 25.0f, 6.0f), //Position
 		vector3(0.0f, 0.0f, 6.0f),	//Target
 		vector3(0.0f, 10.0f, 7.0f));//Up
 
@@ -98,17 +98,6 @@ void Application::Update(void)
 			 v3Temp.z -= m_fFriction;
 		 }
 
-		 //// checking x pos
-		 //if (m_pEntityMngr->GetRigidBody(uTemp)->GetMaxGlobal().x + v3Temp.x >= 40.0f || m_pEntityMngr->GetRigidBody(uTemp)->GetMinGlobal().x - v3Temp.x <= -40.0f)
-		 //{
-		 //	 v3Temp.x = v3Temp.x * (-1.0f);
-		 //}
-		 //// checking z pos
-		 //if (m_pEntityMngr->GetRigidBody(uTemp)->GetMaxGlobal().z + v3Temp.z >= 10.0f || m_pEntityMngr->GetRigidBody(uTemp)->GetMinGlobal().z - v3Temp.z <= -10.0f)
-		 //{
-		 //	 v3Temp.z = v3Temp.z * (-1.0f);
-		 //}
-
 		m_pEntityMngr->SetModelMatrix(lastMatrix, uTemp);
 		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
 
@@ -151,17 +140,6 @@ void Application::Update(void)
 		{
 			v3Temp.z -= m_fFriction;
 		}
-
-		// checking x pos
-		//if (m_pEntityMngr->GetRigidBody(uTemp)->GetMaxGlobal().x + v3Temp.x >= 40.0f || m_pEntityMngr->GetRigidBody(uTemp)->GetMinGlobal().x - v3Temp.x <= -40.0f)
-		//{
-		//	v3Temp.x = v3Temp.x * (-1.0f);
-		//}
-		//// checking z pos
-		//if (m_pEntityMngr->GetRigidBody(uTemp)->GetMaxGlobal().z + v3Temp.z >= 10.0f || m_pEntityMngr->GetRigidBody(uTemp)->GetMinGlobal().z - v3Temp.z <= -10.0f)
-		//{
-		//	v3Temp.z = v3Temp.z * (-1.0f);
-		//}
 
 		m_pEntityMngr->SetModelMatrix(lastMatrix, uTemp);
 		m_pEntityMngr->SetVelocity(v3Temp, uTemp);
@@ -239,7 +217,13 @@ void Application::Display(void)
 
 	//clear the render list
 	m_pMeshMngr->ClearRenderList();
-	
+
+	//draw the grid
+	m_pMeshMngr->AddWireCubeToRenderList(glm::translate(IDENTITY_M4, vector3(-4.5f, 0.0f, 3.0f)) * glm::scale(vector3(9.0f, 0.0f, 10.0f)), vector3(1.0f, 1.0f, 0.0f), 1); // top left
+	m_pMeshMngr->AddWireCubeToRenderList(glm::translate(IDENTITY_M4, vector3(4.5f, 0.0f, 3.0f)) * glm::scale(vector3(9.0f, 0.0f, 10.0f)), vector3(1.0f, 1.0f, 0.0f), 1); // top right
+	m_pMeshMngr->AddWireCubeToRenderList(glm::translate(IDENTITY_M4, vector3(-4.5f, 0.0f, 13.0f)) * glm::scale(vector3(9.0f, 0.0f, 10.0f)), vector3(1.0f, 1.0f, 0.0f), 1); // bottom left
+	m_pMeshMngr->AddWireCubeToRenderList(glm::translate(IDENTITY_M4, vector3(4.5f, 0.0f, 13.0f)) * glm::scale(vector3(9.0f, 0.0f, 10.0f)), vector3(1.0f, 1.0f, 0.0f), 1); // bottom right
+
 	//draw gui
 	DrawGUI();
 	

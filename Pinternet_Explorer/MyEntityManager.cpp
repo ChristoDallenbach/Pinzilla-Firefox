@@ -199,116 +199,100 @@ void Simplex::MyEntityManager::Update(int *health) {
 			tempVert2 = vector3(vector4(tempVert2, 0) * modelMatrix);
 			m_entityList[i]->SetVelocity(tempVert2);
 		}
+		//checks if the object is out of bounds on the z axis. If it is, it reverses its x direction so it bounces off the wall.
+		if (m_entityList[i]->GetRigidBody()->GetMaxGlobal().z >= 18.0f || m_entityList[i]->GetRigidBody()->GetMinGlobal().z <= -2.0f) {
+			vector4 tempVert = vector4(m_entityList[i]->GetVelocity(), 0);
+			matrix4 modelMatrix = m_entityList[i]->GetModelMatrix();
+
+			tempVert = tempVert * glm::inverse(modelMatrix);
+			vector3 tempVert2 = glm::reflect(vector3(tempVert), vector3(0, 0, 1));
+			tempVert2 = vector3(vector4(tempVert2, 0) * modelMatrix);
+			m_entityList[i]->SetVelocity(tempVert2);
+		}
 
 		for (uint j = i + 1; j < m_uEntityCount; j++)
 		{
-			bool tempbool = m_entityList[i]->IsColliding(m_entityList[j]);
-			
-			// if the player and walls are colliding
-			//if (m_entityList[i]->GetUniqueID() == Simplex::String("Player") && m_entityList[j]->GetUniqueID() != Simplex::String("Left_Wall") && tempbool)
-			//{
-			//	
-			//}
-			//else if (m_entityList[i]->GetUniqueID() == Simplex::String("Player") && m_entityList[j]->GetUniqueID() != Simplex::String("Right_Wall") && tempbool)
-			//{
-			//
-			//}
-			//// if the ball and walls are colliding
-			//else if (((m_entityList[i]->GetUniqueID() == Simplex::String("Ball") && m_entityList[j]->GetUniqueID() != Simplex::String("Left_Wall")) || (m_entityList[i]->GetUniqueID() == Simplex::String("Left_Wall") && m_entityList[j]->GetUniqueID() != Simplex::String("Ball"))) && tempbool)
-			//{
-			//
-			//}
-			//else if (((m_entityList[i]->GetUniqueID() == Simplex::String("Ball") && m_entityList[j]->GetUniqueID() != Simplex::String("Right_Wall")) || (m_entityList[i]->GetUniqueID() == Simplex::String("Right_Wall") && m_entityList[j]->GetUniqueID() != Simplex::String("Ball"))) && tempbool)
-			//{
-			//
-			//}
-			//// if the pins and walls are colliding
-			//else if (m_entityList[i]->GetUniqueID() == Simplex::String("Left_Wall") && m_entityList[j]->GetUniqueID() != Simplex::String("Player") && m_entityList[j]->GetUniqueID() != Simplex::String("Player") && tempbool)
-			//{
-			//
-			//}
-			//else if (m_entityList[i]->GetUniqueID() == Simplex::String("Right_Wall") && m_entityList[j]->GetUniqueID() != Simplex::String("Left_Wall") && tempbool)
-			//{
-			//
-			//}
-			// player and pin
-			if (m_entityList[i]->GetNumId() == 0 && m_entityList[j]->GetNumId() == 1 && tempbool) {
-				m_entityList[i]->GetRigidBody()->RemoveCollisionWith(m_entityList[j]->GetRigidBody());
-				health -= 1;
-				RemoveEntity(j);
-				tempbool = false;
+			// if they are in the same dimension
+			if (m_entityList[i]->CheckDimension(m_entityList[j]))
+			{
+				bool tempbool = m_entityList[i]->IsColliding(m_entityList[j]);
+
+				// player and pin
+				//if (m_entityList[i]->GetNumId() == 0 && m_entityList[j]->GetNumId() == 1 && tempbool) {
+				//	m_entityList[i]->GetRigidBody()->RemoveCollisionWith(m_entityList[j]->GetRigidBody());
+				//	health -= 1;
+				//	RemoveEntity(j);
+				//	tempbool = false;
+				//}
+				// if the ball and the pin are colliding
+				if (((m_entityList[i]->GetNumId() == 1 && m_entityList[j]->GetNumId() == 2) || (m_entityList[i]->GetNumId() == 2 && m_entityList[j]->GetNumId() == 1)) && tempbool) {
+					MyEntity* tempBall = m_entityList[i];
+					MyEntity* tempPin = m_entityList[j];
+
+					vector3 collideDirection = glm::normalize(tempBall->GetRigidBody()->GetCenterGlobal());
+					collideDirection.y = 0;
+
+					vector3 newDirection1 = glm::rotateY(collideDirection, glm::radians(45.0f));
+
+					vector3 newDirection2 = glm::rotateY(collideDirection, glm::radians(-45.0f));
+
+					vector3 minPosition = tempPin->GetRigidBody()->GetMinGlobal();
+					minPosition.y = 0;
+					minPosition = tempPin->GetRigidBody()->GetCenterGlobal() - minPosition;
+					matrix4 firstPin = tempPin->GetModelMatrix();
+					firstPin = glm::translate(firstPin, newDirection1 * 10.0f);
+
+
+					vector3 maxPosition = tempPin->GetRigidBody()->GetMaxGlobal();
+					maxPosition.y = 0;
+					maxPosition = tempPin->GetRigidBody()->GetCenterGlobal() - maxPosition;
+					matrix4 secondPin = tempPin->GetModelMatrix();
+					secondPin = glm::translate(secondPin, newDirection2 * 10.0f);
+
+					AddTypeEntity("Sorted\\Pawn.obj", 1, "Pin");
+					m_entityList[m_uEntityCount - 1]->SetModelMatrix(firstPin);
+					//SetVelocity to newDirection1 * speed
+					m_entityList[m_uEntityCount - 1]->SetVelocity(newDirection1 * .3f);
+					SetDimension(m_uEntityCount - 1);
+
+					AddTypeEntity("Sorted\\Pawn.obj", 1, "Pin");
+					m_entityList[m_uEntityCount - 1]->SetModelMatrix(secondPin);
+					//SetVelocity to newDirection2 * speed
+					m_entityList[m_uEntityCount - 1]->SetVelocity(newDirection2 * .3f);
+					SetDimension(m_uEntityCount - 1);
+
+					m_entityList[i]->GetRigidBody()->RemoveCollisionWith(m_entityList[j]->GetRigidBody());
+					RemoveEntity(i);
+					RemoveEntity(j);
+					tempbool = false;
+				}
+
+				// pin and pin collision
+			    //if (m_entityList[i]->GetNumId() == 1 && m_entityList[j]->GetNumId() == 1 && tempbool)
+				//{		 		    	
+			    //	vector3 newVeli = m_entityList[i]->GetVelocity();
+			    //	vector3 newVelj = m_entityList[j]->GetVelocity();
+			    //
+			    //	if ((newVeli.x < 0 && newVelj.x > 0) || (newVeli.x > 0 && newVelj.x < 0)) 
+				//	{
+			    //		newVeli.x = newVeli.x - m_entityList[j]->GetVelocity().x;
+			    //		newVelj.x = newVelj.x - m_entityList[i]->GetVelocity().x;
+			    //	}
+			    //
+			    //	if ((newVeli.z < 0 && newVelj.z > 0) || (newVeli.z > 0 && newVelj.z < 0)) 
+				//	{
+			    //		newVeli.z = newVeli.z - m_entityList[j]->GetVelocity().z;
+			    //		newVelj.z = newVelj.z - m_entityList[i]->GetVelocity().z;
+			    //	}
+			    //
+			    //	newVeli.y = 0;
+			    //	newVelj.y = 0;
+			    //			  
+			    //	m_entityList[i]->SetVelocity(newVeli);
+			    //	m_entityList[j]->SetVelocity(newVelj);
+			    //	tempbool = false;
+			    //}
 			}
-			// if the ball and the pin are colliding
-			if (((m_entityList[i]->GetNumId() == 1 && m_entityList[j]->GetNumId() == 2) || (m_entityList[i]->GetNumId() == 2 && m_entityList[j]->GetNumId() == 1))&& tempbool) {
-				MyEntity* tempBall = m_entityList[i];
-				MyEntity* tempPin = m_entityList[j];
-
-				vector3 collideDirection = glm::normalize(tempBall->GetRigidBody()->GetCenterGlobal());
-				collideDirection.y = 0;
-
-				vector3 newDirection1 = glm::rotateY(collideDirection, glm::radians(45.0f));
-
-				vector3 newDirection2 = glm::rotateY(collideDirection, glm::radians(-45.0f));
-
-				vector3 minPosition = tempPin->GetRigidBody()->GetMinGlobal();
-				minPosition.y = 0;
-				minPosition = tempPin->GetRigidBody()->GetCenterGlobal() - minPosition;
-				matrix4 firstPin = tempPin->GetModelMatrix();
-				firstPin = glm::translate(firstPin, newDirection1 * 10.0f);
-				
-
-				vector3 maxPosition = tempPin->GetRigidBody()->GetMaxGlobal();
-				maxPosition.y = 0;
-				maxPosition = tempPin->GetRigidBody()->GetCenterGlobal() - maxPosition;
-				matrix4 secondPin = tempPin->GetModelMatrix();
-				secondPin = glm::translate(secondPin, newDirection2 * 10.0f);
-
-				AddTypeEntity("Sorted\\Pawn.obj", 1, "Pin");
-				m_entityList[m_uEntityCount - 1]->SetModelMatrix(firstPin);
-				//SetVelocity to newDirection1 * speed
-				m_entityList[m_uEntityCount - 1]->SetVelocity(newDirection1 * .3f);
-				SetDimension(m_uEntityCount - 1);
-
-				AddTypeEntity("Sorted\\Pawn.obj", 1, "Pin");
-				m_entityList[m_uEntityCount - 1]->SetModelMatrix(secondPin);
-				//SetVelocity to newDirection2 * speed
-				m_entityList[m_uEntityCount - 1]->SetVelocity(newDirection2 * .3f);
-				SetDimension(m_uEntityCount - 1);
-
-				m_entityList[i]->GetRigidBody()->RemoveCollisionWith(m_entityList[j]->GetRigidBody());
-				RemoveEntity(i);
-				RemoveEntity(j);
-				tempbool = false;
-			}
-
-			//// pin and pin collision
-		//if (m_entityList[i]->GetNumId() == 1 && m_entityList[j]->GetNumId() == 1 && tempbool) {
-		//	
-		//
-		//	
-		//	vector3 newVeli = m_entityList[i]->GetVelocity();
-		//	vector3 newVelj = m_entityList[j]->GetVelocity();
-		//
-		//	if ((newVeli.x < 0 && newVelj.x > 0) || (newVeli.x > 0 && newVelj.x < 0)) {
-		//		newVeli.x = newVeli.x - m_entityList[j]->GetVelocity().x;
-		//		newVelj.x = newVelj.x - m_entityList[i]->GetVelocity().x;
-		//	}
-		//
-		//	if ((newVeli.z < 0 && newVelj.z > 0) || (newVeli.z > 0 && newVelj.z < 0)) {
-		//		newVeli.z = newVeli.z - m_entityList[j]->GetVelocity().z;
-		//		newVelj.z = newVelj.z - m_entityList[i]->GetVelocity().z;
-		//	}
-		//
-		//	newVeli.y = 0;
-		//	newVelj.y = 0;
-		//
-		//	
-		//
-		//	m_entityList[i]->SetVelocity(newVeli);
-		//	m_entityList[j]->SetVelocity(newVelj);
-		//	tempbool = false;
-		//}
-
 		}
 	}
 
@@ -316,23 +300,27 @@ void Simplex::MyEntityManager::Update(int *health) {
 	//seperate algo for pin to pin collision
 	for (uint e = 0; e < m_uEntityCount; e++) {
 		if (m_entityList[e]->GetNumId() == 1) {
-			for (uint r = e + 1; r < m_uEntityCount; r++) {
-				if (m_entityList[r]->GetNumId() == 1 && m_entityList[e]->IsColliding(m_entityList[r])) {
+			for (uint r = e + 1; r < m_uEntityCount; r++)
+			{
+				if (m_entityList[e]->CheckDimension(m_entityList[r])) 
+				{
+					if (m_entityList[r]->GetNumId() == 1 && m_entityList[e]->IsColliding(m_entityList[r])) {
 
-					MyEntity* PinE = m_entityList[e];
-					MyEntity* PinR = m_entityList[r];
+						MyEntity* PinE = m_entityList[e];
+						MyEntity* PinR = m_entityList[r];
 
-					vector3 VelocityE = PinE->GetVelocity();
-					vector3 VelocityR = PinR->GetVelocity();
+						vector3 VelocityE = PinE->GetVelocity();
+						vector3 VelocityR = PinR->GetVelocity();
 
-					vector3 normalvector = PinE->GetRigidBody()->GetCenterGlobal() - PinR->GetRigidBody()->GetCenterGlobal();
-					normalvector.y = 0;
+						vector3 normalvector = PinE->GetRigidBody()->GetCenterGlobal() - PinR->GetRigidBody()->GetCenterGlobal();
+						normalvector.y = 0;
 
-					VelocityE = glm::reflect(VelocityE, normalvector);
-					VelocityR = glm::reflect(VelocityR, normalvector);
+						VelocityE = glm::reflect(VelocityE, normalvector);
+						VelocityR = glm::reflect(VelocityR, normalvector);
 
-				//uint angle = (glm::dot(VelocityE, VelocityR) / (glm::dot(glm::length(VelocityE), glm::length(VelocityR))));
-				//angle = glm::acos(angle);
+						//uint angle = (glm::dot(VelocityE, VelocityR) / (glm::dot(glm::length(VelocityE), glm::length(VelocityR))));
+						//angle = glm::acos(angle);
+					}
 				}
 			}
 		}
@@ -485,13 +473,13 @@ void MyEntityManager::SetDimension(uint a_uIndex)
 	MyEntity* entityTemp = m_entityList[a_uIndex];
 	std::vector<uint> listTemp;
 
-	// 18 wide unknown tall
+	// 18 wide 20 tall
 
 	// top left - 0
 	v3TempMin.x = -9.0f;
 	v3TempMax.x = 0.0f;
-	v3TempMin.z = 0.0f;
-	v3TempMax.z = 9.0f;
+	v3TempMin.z = 8.0f;
+	v3TempMax.z = 18.0f;
 	
 	if (entityTemp->GetRigidBody()->GetMaxGlobal().x >= v3TempMin.x && entityTemp->GetRigidBody()->GetMinGlobal().x <= v3TempMax.x
 		&& entityTemp->GetRigidBody()->GetMaxGlobal().z >= v3TempMin.z && entityTemp->GetRigidBody()->GetMinGlobal().z <= v3TempMax.z)
@@ -502,8 +490,8 @@ void MyEntityManager::SetDimension(uint a_uIndex)
 	// top right - 1
 	v3TempMin.x = 0.0f;
 	v3TempMax.x = 9.0f;
-	v3TempMin.z = 0.0f;
-	v3TempMax.z = 9.0f;
+	v3TempMin.z = 8.0f;
+	v3TempMax.z = 18.0f;
 	
 	if (entityTemp->GetRigidBody()->GetMaxGlobal().x >= v3TempMin.x && entityTemp->GetRigidBody()->GetMinGlobal().x <= v3TempMax.x
 		&& entityTemp->GetRigidBody()->GetMaxGlobal().z >= v3TempMin.z && entityTemp->GetRigidBody()->GetMinGlobal().z <= v3TempMax.z)
@@ -514,8 +502,8 @@ void MyEntityManager::SetDimension(uint a_uIndex)
 	// bottom left - 2
 	v3TempMin.x = -9.0f;
 	v3TempMax.x = 0.0f;
-	v3TempMin.z = -9.0f;
-	v3TempMax.z = 0.0f;
+	v3TempMin.z = -2.0f;
+	v3TempMax.z = 8.0f;
 	
 	if (entityTemp->GetRigidBody()->GetMaxGlobal().x >= v3TempMin.x && entityTemp->GetRigidBody()->GetMinGlobal().x <= v3TempMax.x
 		&& entityTemp->GetRigidBody()->GetMaxGlobal().z >= v3TempMin.z && entityTemp->GetRigidBody()->GetMinGlobal().z <= v3TempMax.z)
@@ -526,8 +514,8 @@ void MyEntityManager::SetDimension(uint a_uIndex)
 	// bottom right - 3
 	v3TempMin.x = 0.0f;
 	v3TempMax.x = 9.0f;
-	v3TempMin.z = -9.0f;
-	v3TempMax.z = 0.0f;
+	v3TempMin.z = -2.0f;
+	v3TempMax.z = 8.0f;
 
 	if (entityTemp->GetRigidBody()->GetMaxGlobal().x >= v3TempMin.x && entityTemp->GetRigidBody()->GetMinGlobal().x <= v3TempMax.x
 		&& entityTemp->GetRigidBody()->GetMaxGlobal().z >= v3TempMin.z && entityTemp->GetRigidBody()->GetMinGlobal().z <= v3TempMax.z)

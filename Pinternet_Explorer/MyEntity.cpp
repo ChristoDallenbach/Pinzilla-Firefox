@@ -165,15 +165,15 @@ void MyEntity::SetDimension(std::vector<uint> a_lDimensions)
 		m_lDimensions.push_back(a_lDimensions[i]);
 	}
 }
-bool MyEntity::CheckDimension(MyEntity a_entity)
+bool MyEntity::CheckDimension(MyEntity* a_entity)
 {
 	bool tempBool = false;
 
 	for (int i = 0; i < m_uDimensionCount; i++)
 	{
-		for (int j = 0; j < a_entity.m_uDimensionCount; j++)
+		for (int j = 0; j < a_entity->m_uDimensionCount; j++)
 		{
-			if (m_lDimensions[i] == m_lDimensions[j])
+			if (m_lDimensions[i] == a_entity->m_lDimensions[j])
 			{
 				tempBool = true;
 			}
