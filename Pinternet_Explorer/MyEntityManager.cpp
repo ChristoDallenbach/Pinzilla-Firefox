@@ -318,6 +318,9 @@ void Simplex::MyEntityManager::Update(int *health) {
 						VelocityE = glm::reflect(VelocityE, normalvector);
 						VelocityR = glm::reflect(VelocityR, normalvector);
 
+						PinE->SetVelocity(VelocityE);
+						PinR->SetVelocity(VelocityR);
+
 						//uint angle = (glm::dot(VelocityE, VelocityR) / (glm::dot(glm::length(VelocityE), glm::length(VelocityR))));
 						//angle = glm::acos(angle);
 					}

@@ -1,8 +1,8 @@
-# Install script for directory: D:/Profiles/wtw1820/source/repos/Pinzilla-Firefox/include/glm
+# Install script for directory: C:/Users/willw/source/Repos/Pinzilla-Firefox/include/glm
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "d:/profiles/wtw1820/source/repos/pinzilla-firefox/include/glm/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/willw/Source/Repos/Pinzilla-Firefox/include/glm/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/Profiles/wtw1820/source/repos/Pinzilla-Firefox/include/glm/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/willw/source/Repos/Pinzilla-Firefox/include/glm/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

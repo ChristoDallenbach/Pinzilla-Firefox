@@ -34,7 +34,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "glm_dummy::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-glm_dummy-Debug-2c45182502f995ba7b70.json",
+					"jsonFile" : "target-glm_dummy-Debug-6d35a1e29c49c2e87369.json",
 					"name" : "glm_dummy",
 					"projectIndex" : 0
 				}
@@ -44,8 +44,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/Profiles/wtw1820/source/repos/Pinzilla-Firefox/include/glm/out/build/x64-Debug",
-		"source" : "D:/Profiles/wtw1820/source/repos/Pinzilla-Firefox/include/glm"
+		"build" : "C:/Users/willw/source/Repos/Pinzilla-Firefox/include/glm/out/build/x64-Debug",
+		"source" : "C:/Users/willw/source/Repos/Pinzilla-Firefox/include/glm"
 	},
 	"version" : 
 	{
