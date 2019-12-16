@@ -200,7 +200,7 @@ void Simplex::MyEntityManager::Update(int *health) {
 			m_entityList[i]->SetVelocity(tempVert2);
 		}
 		//checks if the object is out of bounds on the z axis. If it is, it reverses its x direction so it bounces off the wall.
-		if (m_entityList[i]->GetRigidBody()->GetMaxGlobal().z >= 18.0f || m_entityList[i]->GetRigidBody()->GetMinGlobal().z <= -2.0f) {
+		if (m_entityList[i]->GetRigidBody()->GetMaxGlobal().z >= 17.5f || m_entityList[i]->GetRigidBody()->GetMinGlobal().z <= -1.5f) {
 			vector4 tempVert = vector4(m_entityList[i]->GetVelocity(), 0);
 			matrix4 modelMatrix = m_entityList[i]->GetModelMatrix();
 
@@ -212,7 +212,7 @@ void Simplex::MyEntityManager::Update(int *health) {
 
 		for (uint j = i + 1; j < m_uEntityCount; j++)
 		{
-			// if they are in the same dimension
+			// spatial optimization
 			if (m_entityList[i]->CheckDimension(m_entityList[j]))
 			{
 				bool tempbool = m_entityList[i]->IsColliding(m_entityList[j]);
@@ -226,8 +226,20 @@ void Simplex::MyEntityManager::Update(int *health) {
 				//}
 				// if the ball and the pin are colliding
 				if (((m_entityList[i]->GetNumId() == 1 && m_entityList[j]->GetNumId() == 2) || (m_entityList[i]->GetNumId() == 2 && m_entityList[j]->GetNumId() == 1)) && tempbool) {
-					MyEntity* tempBall = m_entityList[i];
-					MyEntity* tempPin = m_entityList[j];
+					
+					MyEntity* tempBall;
+					MyEntity* tempPin;
+					
+					if (m_entityList[i]->GetNumId() == 2)
+					{
+						tempBall = m_entityList[i];
+						tempPin = m_entityList[j];
+					}
+					else
+					{
+						tempBall = m_entityList[j];
+						tempPin = m_entityList[i];
+					}				
 
 					vector3 collideDirection = glm::normalize(tempBall->GetRigidBody()->GetCenterGlobal());
 					collideDirection.y = 0;
@@ -240,14 +252,14 @@ void Simplex::MyEntityManager::Update(int *health) {
 					minPosition.y = 0;
 					minPosition = tempPin->GetRigidBody()->GetCenterGlobal() - minPosition;
 					matrix4 firstPin = tempPin->GetModelMatrix();
-					firstPin = glm::translate(firstPin, newDirection1 * 10.0f);
+					firstPin = glm::translate(firstPin, newDirection1 * 5.0f);
 
 
 					vector3 maxPosition = tempPin->GetRigidBody()->GetMaxGlobal();
 					maxPosition.y = 0;
 					maxPosition = tempPin->GetRigidBody()->GetCenterGlobal() - maxPosition;
 					matrix4 secondPin = tempPin->GetModelMatrix();
-					secondPin = glm::translate(secondPin, newDirection2 * 10.0f);
+					secondPin = glm::translate(secondPin, newDirection2 * 5.0f);
 
 					AddTypeEntity("Sorted\\Pawn.obj", 1, "Pin");
 					m_entityList[m_uEntityCount - 1]->SetModelMatrix(firstPin);
@@ -302,6 +314,7 @@ void Simplex::MyEntityManager::Update(int *health) {
 		if (m_entityList[e]->GetNumId() == 1) {
 			for (uint r = e + 1; r < m_uEntityCount; r++)
 			{
+				// spatial optimization
 				if (m_entityList[e]->CheckDimension(m_entityList[r])) 
 				{
 					if (m_entityList[r]->GetNumId() == 1 && m_entityList[e]->IsColliding(m_entityList[r])) {
@@ -313,13 +326,15 @@ void Simplex::MyEntityManager::Update(int *health) {
 						vector3 VelocityR = PinR->GetVelocity();
 
 						vector3 normalvector = PinE->GetRigidBody()->GetCenterGlobal() - PinR->GetRigidBody()->GetCenterGlobal();
-						normalvector.y = 0;
+						normalvector.y = 0;						
+						
+						//VelocityE = glm::reflect(VelocityE, normalvector);
+						//VelocityR = glm::reflect(VelocityR, normalvector);
 
-						VelocityE = glm::reflect(VelocityE, normalvector);
-						VelocityR = glm::reflect(VelocityR, normalvector);
+						PinE->SetVelocity(VelocityR);
+						PinR->SetVelocity(VelocityE);
 
-						PinE->SetVelocity(VelocityE);
-						PinR->SetVelocity(VelocityR);
+						m_entityList[e]->GetRigidBody()->RemoveCollisionWith(m_entityList[r]->GetRigidBody());
 
 						//uint angle = (glm::dot(VelocityE, VelocityR) / (glm::dot(glm::length(VelocityE), glm::length(VelocityR))));
 						//angle = glm::acos(angle);
